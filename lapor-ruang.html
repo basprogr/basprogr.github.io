@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./default.css"> 
+    <title>bas</title>
+</head>
+<body>
+    <h2>Asesmen</h2> 
+    <table> 
+        <tr>
+            <td>Asal pasien</td>
+            <td>
+                <input type="radio" name="pin" id="pin-igd">
+                <label for="pin-igd">IGD</label>
+                &emsp;
+                <input type="radio" name="pin" id="pin-rps">
+                <label for="pin-rps">RPS</label> 
+                &emsp;
+                <input type="text" id="pin-lain" autocomplete="off" placeholder="unit lain" style="width: 100px;">
+                <button type="button" onclick="resetPindahan()">Reset</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Identitas</td>
+            <td>
+                <input type="radio" name="alias" id="alias-tn">
+                <label for="alias-tn">Tn.</label>
+                &emsp;
+                <input type="radio" name="alias" id="alias-ny">
+                <label for="alias-ny">Ny.</label>
+                &emsp;
+                <input type="radio" name="alias" id="alias-sdr">
+                <label for="alias-sdr">Sdr.</label>
+                &emsp;
+                <input type="radio" name="alias" id="alias-sdri">
+                <label for="alias-sdri">Sdri.</label>
+                &emsp;
+                <input type="radio" name="alias" id="alias-an">
+                <label for="alias-an">An.</label>
+                <br><br>
+                <input type="text" id="name" autocomplete="off" placeholder="nama pasien">
+                <br><br>
+                <input type="text" id="age" autocomplete="off" placeholder="usia" style="width: 50px;"> tahun<br>
+            </td>
+        </tr>
+        <tr>
+            <td>Diagnosa</td>
+            <td>
+                <input class="fit" type="text" id="diagnosa" autocomplete="off" placeholder="diagnosa">
+            </td>
+        </tr>
+        <tr>
+            <td>Keluhan</td>
+            <td>
+                <textarea id="keluhan" rows="4" placeholder="keluhan"></textarea>
+            </td>
+        </tr> 
+        <tr>
+            <td>Tindakan</td>
+            <td>
+                <input class="fit" type="text" id="tindakan" autocomplete="off" placeholder="tindakan">
+            </td>
+        </tr>
+        <tr>
+            <td>Penunjang</td>
+            <td> 
+                <input type="checkbox" name="penunjang" id="lab" value="Lab" checked> <label for="lab">Lab</label>&emsp;
+                <input type="checkbox" name="penunjang" id="thorax" value="Thorax" checked> <label for="thorax">Thorax</label>&emsp;
+                <input type="checkbox" name="penunjang" id="ecg" value="ECG"> <label for="ecg">ECG</label>&emsp;
+                <input type="checkbox" name="penunjang" id="usg" value="USG"> <label for="usg">USG</label>&emsp;
+                <input type="checkbox" name="penunjang" id="ctScan" value="CT-Scan"> <label for="ctScan">CT-Scan</label> 
+            </td>
+        </tr>
+    </table>
+    
+    <h2>Tanda Vital (TTV)</h2> 
+    <table>
+        <tr>
+            <td>Tensi</td>
+            <td>
+                <input type="text" id="sis" autocomplete="off" style="width: 50px;"> /
+                <input type="text" id="dia" autocomplete="off" style="width: 50px;"> mmHg
+            </td>
+        </tr>
+        <tr>
+            <td>Nadi</td>
+            <td><input type="text" id="n" autocomplete="off" style="width: 50px;"> x/menit</td>
+        </tr>
+        <tr>
+            <td>Suhu</td>
+            <td><input type="text" id="s" value="36" autocomplete="off" style="width: 50px;"> C</td>
+        </tr>
+        <tr>
+            <td>RR</td>
+            <td><input type="text" id="rr" value="20" autocomplete="off" style="width: 50px;"> x/w</td>
+        </tr>
+        <tr>
+            <td>SpO2</td>
+            <td><input type="text" id="spo2" autocomplete="off" style="width: 50px;"> %</td>
+        </tr>
+    </table> 
+
+    <button type="button" onclick="compose()" style="width: 100%; margin: 10px 0; padding: 10px;">Compose</button>
+    
+    <textarea rows="10" id="preview"></textarea> 
+    <div style="display: flex; justify-content: space-between;">
+        <span id="alert" style="color: #ccc;"></span>
+        <div>
+            <button type="button" onclick="reset()">Reset</button>
+            <button type="button" onclick="copy()">Copy</button>
+        </div>
+    </div>
+
+    <script>   
+        function compose(){
+            // tentukan waktu lapor
+            const date = new Date();
+            let hour = date.getHours(); 
+            let sapa; 
+            if (hour < 11) {
+                sapa = 'pagi';
+            } else if (hour > 10 && hour < 15) {
+                sapa = 'siang';    
+            } else if (hour > 14 && hour < 18) {
+                sapa = 'sore';
+            } else {
+                sapa = 'malam';
+            } 
+
+            // pindahan
+            let pindahan;
+            if (document.getElementById('pin-igd').checked == true) {
+                pindahan = 'IGD';
+            } else if (document.getElementById('pin-rps').checked == true) {
+                pindahan = 'RPS';
+            } else {
+                pindahan = document.getElementById('pin-lain').value;
+            } 
+ 
+            // tentukan alias
+            let alias;
+            if (document.getElementById('alias-tn').checked == true) {
+                alias = 'Tn. ';
+            } else if (document.getElementById('alias-ny').checked == true) {
+                alias = 'Ny. ';
+            } else if (document.getElementById('alias-sdr').checked == true) {
+                alias = 'Sdr. ';
+            } else if (document.getElementById('alias-sdri').checked == true) {
+                alias = 'Sdri. ';
+            } else if (document.getElementById('alias-an').checked == true) {
+                alias = 'An. ';
+            } else {
+                alias = '';
+            }
+
+            // ubah nama ke huruf besar
+            let getName = document.getElementById('name').value;
+            let name = getName.toUpperCase(); 
+
+            // usia 
+            let age = document.getElementById('age').value;
+
+            // dengan diagnosa atau tidak
+            let diagnosa;
+            let getDiagnosa = document.getElementById('diagnosa').value;
+            if (getDiagnosa == '') {
+                diagnosa = '\r\n\r\n';
+            } else {
+                diagnosa = '\r\ndengan ' + getDiagnosa + '\r\n\r\n';
+            } 
+        
+            let keluhan = document.getElementById('keluhan').value;
+            let sis = document.getElementById('sis').value;
+            let dia = document.getElementById('dia').value;
+            let n = document.getElementById('n').value;
+            let su = document.getElementById('s').value;
+            let rr = document.getElementById('rr').value;
+            let spo2 = document.getElementById('spo2').value;
+
+            // Rencana tindakan
+            let tindakan;
+            let getTindakan = document.getElementById('tindakan').value;
+            if (getTindakan == '') {
+                tindakan = '\r\n';
+            } else {
+                tindakan = '\r\n`Rencana Tindakan`\r\n' + '- ' + getTindakan + '\r\n\r\n';
+            } 
+
+            // cek penunjang
+            let penunjang = document.querySelectorAll('input[type=checkbox]:checked');
+            let listPenunjang = ''; 
+            for (var i = 0; i < penunjang.length; i++) {
+                listPenunjang += '- ' + penunjang[i].value + '\r\n';
+            } 
+             
+            document.getElementById('preview').value = 
+                'Selamat ' + sapa + ' dokter,\r\n' +
+                'Melaporkan pasien baru pindahan dari ' + pindahan + '\r\n\r\n' + 
+                '*a/n ' + alias + name + ' / ' + age + 'th*' + 
+                
+                diagnosa +
+                
+                'Keluhan : ' + keluhan + '\r\n\r\n' +
+ 
+                '```' + 
+                '- TD   : ' + sis + '/' + dia + ' mmHg\r\n' +
+                '- Nadi : ' +  n + ' x/menit\r\n' +
+                '- Suhu : ' +  su + ' C\r\n' +
+                '- RR   : ' +  rr + ' x\r\n' +
+                '- Spo2 : ' +  spo2 + ' %' + 
+                '```\r\n\r\n' +
+
+                '`Terapi`\r\n' +
+                '- ' + 
+                '\r\n\r\n' +
+                
+                '`Penujang`\r\n' +
+                listPenunjang + 
+                
+                tindakan + 
+ 
+                'Apakah ada advis tambahan dokter? \r\n' +
+                'Terimakasih ..'
+            ;
+        }
+
+        function resetPindahan(){  
+            document.getElementById('pin-igd').checked = false;
+            document.getElementById('pin-rps').checked = false;
+            document.getElementById('pin-lain').value = '';
+        }  
+
+        function copy(){
+            let preview = document.getElementById('preview');
+            preview.select();
+            preview.setSelectionRange(0, 99999);
+            
+            navigator.clipboard.writeText(preview.value);
+            document.getElementById('alert').innerHTML = 'Pesan sudah disalin'
+        }
+    </script>
+</body>
+</html>

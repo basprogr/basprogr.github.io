@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bas</title>
+    <link rel="stylesheet" href="./default.css">
+</head>
+<body>
+    <h2>Permintaan Resep</h2>
+    <table>
+        <tr>
+            <td>Nama</td>
+            <td>
+                <input type="text" id="name" class="fit" autocomplete="off">
+                <hr>
+                <input type="radio" name="alias" id="alias-tn">
+                <label for="alias-tn">Tn.</label>
+                &emsp;
+                <input type="radio" name="alias" id="alias-ny">
+                <label for="alias-ny">Ny.</label>
+                &emsp;
+                <input type="radio" name="alias" id="alias-sdr">
+                <label for="alias-sdr">Sdr.</label>
+                &emsp;
+                <input type="radio" name="alias" id="alias-sdri">
+                <label for="alias-sdri">Sdri.</label>
+                &emsp;
+                <input type="radio" name="alias" id="alias-an">
+                <label for="alias-an">An.</label>
+            </td>
+        </tr>
+        <tr>
+            <td>No. RM</td>
+            <td>
+                <input type="text" id="mr" autocomplete="off">
+                <button type="button" onclick="compose()">Submit</button>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <textarea id="preview" rows="10"></textarea>
+                <div style="display: flex; justify-content: space-between;">
+                    <span id="alert" style="color: #ccc;"></span>
+                    <div>
+                        <button type="button" onclick="reset()">Reset</button>
+                        <button type="button" onclick="copy()">Copy</button>
+                    </div>
+                </div>
+            </td>
+        </tr> 
+    </table>
+
+    <script> 
+        function compose(){ 
+            // tentukan waktu lapor
+            const date = new Date();
+            let hour = date.getHours(); 
+            let sapa; 
+            if (hour < 11) {
+                sapa = 'pagi';
+            } else if (hour > 10 && hour < 15) {
+                sapa = 'siang';    
+            } else if (hour > 14 && hour < 18) {
+                sapa = 'sore';
+            } else {
+                sapa = 'malam';
+            } 
+ 
+            // tentukan alias
+            let alias;
+            if (document.getElementById('alias-tn').checked == true) {
+                alias = 'Tn. ';
+            } else if (document.getElementById('alias-ny').checked == true) {
+                alias = 'Ny. ';
+            } else if (document.getElementById('alias-sdr').checked == true) {
+                alias = 'Sdr. ';
+            } else if (document.getElementById('alias-sdri').checked == true) {
+                alias = 'Sdri. ';
+            } else if (document.getElementById('alias-an').checked == true) {
+                alias = 'An. ';
+            } else {
+                alias = '';
+            }
+
+            // ubah nama ke huruf besar
+            let getName = document.getElementById('name').value;
+            let name = getName.toUpperCase();  
+
+            // MR
+            let mr = document.getElementById('mr').value;
+        
+            // rangkai pesan
+            document.getElementById('preview').value = 
+                'Selamat ' + sapa + ' dokter, RID minta eresep\r\n' +
+ 
+                '\r\n' + 
+                '```Nama :``` *' + alias + name + '*\r\n' +
+                '```RM   :``` *' + mr + '*\r\n' + 
+                '\r\n' +
+                
+                '- \r\n\r\n' +
+                'terimakasih ..'; 
+        }
+
+        function copy(){
+            let preview = document.getElementById('preview');
+            preview.select();
+            preview.setSelectionRange(0, 99999);
+            
+            navigator.clipboard.writeText(preview.value);
+            document.getElementById('alert').innerHTML = 'Pesan sudah disalin'
+        }
+
+        function reset(){
+            document.getElementById('name').value = '';
+            document.getElementById('alias-tn').checked == false;
+            document.getElementById('alias-ny').checked == false;
+            document.getElementById('alias-sdr').checked == false;
+            document.getElementById('alias-sdri').checked == false;
+            document.getElementById('alias-an').checked == false; 
+            document.getElementById('mr').value = '';
+            document.getElementById('preview').value = '';
+            document.getElementById('alert').innerHTML = ''; 
+        }
+    </script>
+</body>
+</html>
