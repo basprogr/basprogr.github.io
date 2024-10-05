@@ -11,9 +11,7 @@
     <table>
         <tr>
             <td>Nama</td>
-            <td>
-                <input type="text" id="name" class="fit" autocomplete="off">
-                <hr>
+            <td> 
                 <input type="radio" name="alias" id="alias-tn">
                 <label for="alias-tn">Tn.</label>
                 &emsp;
@@ -24,10 +22,9 @@
                 <label for="alias-sdr">Sdr.</label>
                 &emsp;
                 <input type="radio" name="alias" id="alias-sdri">
-                <label for="alias-sdri">Sdri.</label>
-                &emsp;
-                <input type="radio" name="alias" id="alias-an">
-                <label for="alias-an">An.</label>
+                <label for="alias-sdri">Sdri.</label> 
+                <hr>
+                <input type="text" id="name" class="fit" autocomplete="off" placeholder="nama pasien"> 
             </td>
         </tr>
         <tr>
@@ -43,8 +40,9 @@
                 <div style="display: flex; justify-content: space-between;">
                     <span id="alert" style="color: #ccc;"></span>
                     <div>
-                        <button type="button" onclick="reset()">Reset</button>
+                        <button type="button" onclick="window.open('./resep.html', '_self')">Reset</button>
                         <button type="button" onclick="copy()">Copy</button>
+                        <button type="button" onclick="send()">Send</button> 
                     </div>
                 </div>
             </td>
@@ -77,8 +75,6 @@
                 alias = 'Sdr. ';
             } else if (document.getElementById('alias-sdri').checked == true) {
                 alias = 'Sdri. ';
-            } else if (document.getElementById('alias-an').checked == true) {
-                alias = 'An. ';
             } else {
                 alias = '';
             }
@@ -122,6 +118,11 @@
             document.getElementById('mr').value = '';
             document.getElementById('preview').value = '';
             document.getElementById('alert').innerHTML = ''; 
+        }
+
+        function send(){
+            let url = 'http://wa.me/+6281515066734';
+            window.open(url, '_blank');
         }
     </script>
 </body>

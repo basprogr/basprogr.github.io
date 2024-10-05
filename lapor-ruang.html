@@ -18,8 +18,8 @@
                 <input type="radio" name="pin" id="pin-rps">
                 <label for="pin-rps">RPS</label> 
                 &emsp;
-                <input type="text" id="pin-lain" autocomplete="off" placeholder="unit lain" style="width: 100px;">
-                <button type="button" onclick="resetPindahan()">Reset</button>
+                <input type="text" id="pin-lain" autocomplete="off" placeholder="unit lain" style="width: 60px;">
+                <button type="button" onclick="resetPindahan()">&#8635;</button>
             </td>
         </tr>
         <tr>
@@ -35,12 +35,9 @@
                 <label for="alias-sdr">Sdr.</label>
                 &emsp;
                 <input type="radio" name="alias" id="alias-sdri">
-                <label for="alias-sdri">Sdri.</label>
-                &emsp;
-                <input type="radio" name="alias" id="alias-an">
-                <label for="alias-an">An.</label>
+                <label for="alias-sdri">Sdri.</label> 
                 <br><br>
-                <input type="text" id="name" autocomplete="off" placeholder="nama pasien">
+                <input type="text" id="name" autocomplete="off" placeholder="nama pasien" class="fit">
                 <br><br>
                 <input type="text" id="age" autocomplete="off" placeholder="usia" style="width: 50px;"> tahun<br>
             </td>
@@ -66,11 +63,13 @@
         <tr>
             <td>Penunjang</td>
             <td> 
-                <input type="checkbox" name="penunjang" id="lab" value="Lab" checked> <label for="lab">Lab</label>&emsp;
-                <input type="checkbox" name="penunjang" id="thorax" value="Thorax" checked> <label for="thorax">Thorax</label>&emsp;
-                <input type="checkbox" name="penunjang" id="ecg" value="ECG"> <label for="ecg">ECG</label>&emsp;
+                <input type="checkbox" name="penunjang" id="lab" value="Lab"> <label for="lab">Lab</label>&emsp;
+                <input type="checkbox" name="penunjang" id="thorax" value="Thorax"> <label for="thorax">Thorax</label>&emsp;
+                <input type="checkbox" name="penunjang" id="ecg" value="ECG"> <label for="ecg">ECG</label>
+                <hr>
                 <input type="checkbox" name="penunjang" id="usg" value="USG"> <label for="usg">USG</label>&emsp;
-                <input type="checkbox" name="penunjang" id="ctScan" value="CT-Scan"> <label for="ctScan">CT-Scan</label> 
+                <input type="checkbox" name="penunjang" id="ctScan" value="CT-Scan"> <label for="ctScan">CT-Scan</label>&emsp;
+                <input type="checkbox" name="penunjang" id="bof" value="BOF"> <label for="bof">BOF</label> 
             </td>
         </tr>
     </table>
@@ -108,8 +107,9 @@
     <div style="display: flex; justify-content: space-between;">
         <span id="alert" style="color: #ccc;"></span>
         <div>
-            <button type="button" onclick="reset()">Reset</button>
+            <button type="button" onclick="window.open('./lapor-ruang.html', '_self')">Reset</button>
             <button type="button" onclick="copy()">Copy</button>
+            <button type="button" onclick="send()">Send</button>
         </div>
     </div>
 
@@ -149,8 +149,6 @@
                 alias = 'Sdr. ';
             } else if (document.getElementById('alias-sdri').checked == true) {
                 alias = 'Sdri. ';
-            } else if (document.getElementById('alias-an').checked == true) {
-                alias = 'An. ';
             } else {
                 alias = '';
             }
@@ -205,11 +203,12 @@
                 'Keluhan : ' + keluhan + '\r\n\r\n' +
  
                 '```' + 
-                '- TD   : ' + sis + '/' + dia + ' mmHg\r\n' +
-                '- Nadi : ' +  n + ' x/menit\r\n' +
-                '- Suhu : ' +  su + ' C\r\n' +
-                '- RR   : ' +  rr + ' x\r\n' +
-                '- Spo2 : ' +  spo2 + ' %' + 
+                'GCS  : 456\r\n' +
+                'TD   : ' + sis + '/' + dia + ' mmHg\r\n' +
+                'Nadi : ' +  n + ' x/menit\r\n' +
+                'Suhu : ' +  su + ' C\r\n' +
+                'RR   : ' +  rr + ' x\r\n' +
+                'Spo2 : ' +  spo2 + ' %' + 
                 '```\r\n\r\n' +
 
                 '`Terapi`\r\n' +
@@ -239,6 +238,11 @@
             
             navigator.clipboard.writeText(preview.value);
             document.getElementById('alert').innerHTML = 'Pesan sudah disalin'
+        }
+
+        function send(){
+            let url = 'http://wa.me/+6281515066734';
+            window.open(url, '_blank');
         }
     </script>
 </body>
