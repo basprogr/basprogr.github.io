@@ -19,7 +19,9 @@
                 <label for="pin-rps">RPS</label> 
                 &emsp;
                 <input type="text" id="pin-lain" autocomplete="off" placeholder="unit lain" style="width: 60px;">
-                <button type="button" onclick="resetPindahan()">&#8635;</button>
+                <button type="button" onclick="resetPindahan()">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M463.5 224l8.5 0c13.3 0 24-10.7 24-24l0-128c0-9.7-5.8-18.5-14.8-22.2s-19.3-1.7-26.2 5.2L413.4 96.6c-87.6-86.5-228.7-86.2-315.8 1c-87.5 87.5-87.5 229.3 0 316.8s229.3 87.5 316.8 0c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0c-62.5 62.5-163.8 62.5-226.3 0s-62.5-163.8 0-226.3c62.2-62.2 162.7-62.5 225.3-1L327 183c-6.9 6.9-8.9 17.2-5.2 26.2s12.5 14.8 22.2 14.8l119.5 0z"/></svg>
+                </button>
             </td>
         </tr>
         <tr>
@@ -101,22 +103,12 @@
         </tr>
     </table> 
 
-    <button type="button" onclick="compose()" style="width: calc(100% - 20px); margin: 10px; padding: 10px;">Compose</button>
-    
-    <textarea rows="10" id="preview" style="margin: 10px;"></textarea> 
-    <div style="display: flex; justify-content: space-between;">
-        <span id="alert" style="color: #ccc;"></span>
-        <div>
-            <button type="button" onclick="window.open('./lapor-ruang.html', '_self')">Reset</button>
-            <button type="button" onclick="copy()">Copy</button>
-            <button type="button" onclick="send()">Send</button>
-        </div>
-    </div>
-
-    <script>
-        // inisialisasi
-        let textareaMessage = '';
-
+    <button type="button" onclick="compose()" style="width: 100%; height: 50px; margin: 10px 0px;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M64 464c-8.8 0-16-7.2-16-16L48 64c0-8.8 7.2-16 16-16l160 0 0 80c0 17.7 14.3 32 32 32l80 0 0 288c0 8.8-7.2 16-16 16L64 464zM64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-293.5c0-17-6.7-33.3-18.7-45.3L274.7 18.7C262.7 6.7 246.5 0 229.5 0L64 0zm56 256c-13.3 0-24 10.7-24 24s10.7 24 24 24l144 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-144 0zm0 96c-13.3 0-24 10.7-24 24s10.7 24 24 24l144 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-144 0z"/></svg>
+        Compose
+    </button>
+      
+    <script>  
         function compose(){
             // tentukan waktu lapor
             const date = new Date();
@@ -167,9 +159,9 @@
             let diagnosa;
             let getDiagnosa = document.getElementById('diagnosa').value;
             if (getDiagnosa == '') {
-                diagnosa = '\r\n\r\n';
+                diagnosa = '%0A%0A';
             } else {
-                diagnosa = '\r\ndengan ' + getDiagnosa + '\r\n\r\n';
+                diagnosa = '%0Adengan ' + getDiagnosa + '%0A%0A';
             } 
         
             let keluhan = document.getElementById('keluhan').value;
@@ -184,76 +176,58 @@
             let tindakan;
             let getTindakan = document.getElementById('tindakan').value;
             if (getTindakan == '') {
-                tindakan = '\r\n';
+                tindakan = '%0A';
             } else {
-                tindakan = '\r\n`Rencana Tindakan`\r\n' + '- ' + getTindakan + '\r\n\r\n';
+                tindakan = '%0A`Rencana Tindakan`%0A' + '- ' + getTindakan + '%0A%0A';
             } 
 
             // cek penunjang
             let penunjang = document.querySelectorAll('input[type=checkbox]:checked');
             let listPenunjang = ''; 
             for (var i = 0; i < penunjang.length; i++) {
-                listPenunjang += '- ' + penunjang[i].value + '\r\n';
+                listPenunjang += '- ' + penunjang[i].value + '%0A';
             } 
 
             // compose message
-            let previewMessage = 'Selamat ' + sapa + ' dokter,\r\n' +
-                'Melaporkan pasien baru pindahan dari ' + pindahan + '\r\n\r\n' + 
+            let url = 'http://wa.me/+6281515066734?text='; 
+            let msg = 
+                'Selamat ' + sapa + ' dokter,%0A' +
+                'Melaporkan pasien baru pindahan dari ' + pindahan + '%0A%0A' + 
                 '*a/n ' + alias + name + ' / ' + age + 'th*' + 
                 
                 diagnosa +
                 
-                'Keluhan : ' + keluhan + '\r\n\r\n' +
+                'Keluhan : ' + keluhan + '%0A%0A' +
  
                 '```' + 
-                'GCS  : 456\r\n' +
-                'TD   : ' + sis + '/' + dia + ' mmHg\r\n' +
-                'Nadi : ' +  n + ' x/menit\r\n' +
-                'Suhu : ' +  su + ' C\r\n' +
-                'RR   : ' +  rr + ' x\r\n' +
+                'GCS  : 456%0A' +
+                'TD   : ' + sis + '/' + dia + ' mmHg%0A' +
+                'Nadi : ' +  n + ' x/menit%0A' +
+                'Suhu : ' +  su + ' C%0A' +
+                'RR   : ' +  rr + ' x%0A' +
                 'Spo2 : ' +  spo2 + ' %' + 
-                '```\r\n\r\n' +
+                '```%0A%0A' +
 
-                '`Terapi`\r\n' +
+                '`Terapi`%0A' +
                 '- ' + 
-                '\r\n\r\n' +
+                '%0A%0A' +
                 
-                '`Penujang`\r\n' +
+                '`Penujang`%0A' +
                 listPenunjang + 
                 
                 tindakan + 
  
-                'Apakah ada advis tambahan dokter? \r\n' +
-                'Terimakasih ..'
-            
-            // set composed message to preview area
-            document.getElementById('preview').value = previewMessage;
-
-            // enter pure textarea message to variable
-            textareaMessage = previewMessage;
+                'Apakah ada advis tambahan dokter? %0A' +
+                'Terimakasih ..';
+                 
+            window.open(url + msg, '_blank'); 
         }
 
         function resetPindahan(){  
             document.getElementById('pin-igd').checked = false;
             document.getElementById('pin-rps').checked = false;
             document.getElementById('pin-lain').value = '';
-        }  
-
-        function copy(){
-            let preview = document.getElementById('preview');
-            preview.select();
-            preview.setSelectionRange(0, 99999);
-            
-            navigator.clipboard.writeText(preview.value);
-            document.getElementById('alert').innerHTML = 'Pesan sudah disalin'
-        }
-
-        function send(){
-            let url = 'http://wa.me/+6281515066734?text=';
-            let msg = textareaMessage.replaceAll(/\r\n/g,"%0A");
-            window.open(url + msg, '_blank');
-            console.log(url + msg);
-        }
+        }   
     </script>
 </body>
 </html>

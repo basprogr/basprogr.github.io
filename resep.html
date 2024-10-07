@@ -31,25 +31,15 @@
             <td>No. RM</td>
             <td>
                 <input type="text" id="mr" autocomplete="off">
-                <button type="button" onclick="compose()">Submit</button>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <textarea id="preview" rows="10"></textarea>
-                <div style="display: flex; justify-content: space-between;">
-                    <span id="alert" style="color: #ccc;"></span>
-                    <div>
-                        <button type="button" onclick="window.open('./resep.html', '_self')">Reset</button>
-                        <button type="button" onclick="copy()">Copy</button>
-                        <button type="button" onclick="send()">Send</button> 
-                    </div>
-                </div>
+                <button type="button" onclick="compose()">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M64 464c-8.8 0-16-7.2-16-16L48 64c0-8.8 7.2-16 16-16l160 0 0 80c0 17.7 14.3 32 32 32l80 0 0 288c0 8.8-7.2 16-16 16L64 464zM64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-293.5c0-17-6.7-33.3-18.7-45.3L274.7 18.7C262.7 6.7 246.5 0 229.5 0L64 0zm56 256c-13.3 0-24 10.7-24 24s10.7 24 24 24l144 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-144 0zm0 96c-13.3 0-24 10.7-24 24s10.7 24 24 24l144 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-144 0z"/></svg>
+                    &nbsp;Compose
+                </button>
             </td>
         </tr> 
     </table>
 
-    <script> 
+    <script>   
         function compose(){ 
             // tentukan waktu lapor
             const date = new Date();
@@ -87,43 +77,29 @@
             let mr = document.getElementById('mr').value;
         
             // rangkai pesan
-            document.getElementById('preview').value = 
-                'Selamat ' + sapa + ' dokter, RID minta eresep\r\n' +
+            let msg = 
+                'Selamat ' + sapa + ' dokter, RID minta eresep%0A' +
  
-                '\r\n' + 
-                '```Nama :``` *' + alias + name + '*\r\n' +
-                '```RM   :``` *' + mr + '*\r\n' + 
-                '\r\n' +
+                '%0A' + 
+                '```Nama :``` *' + alias + name + '*%0A' +
+                '```RM   :``` *' + mr + '*%0A' + 
+                '%0A' +
                 
-                '- \r\n\r\n' +
+                '- %0A%0A' +
                 'terimakasih ..'; 
-        }
 
-        function copy(){
-            let preview = document.getElementById('preview');
-            preview.select();
-            preview.setSelectionRange(0, 99999);
-            
-            navigator.clipboard.writeText(preview.value);
-            document.getElementById('alert').innerHTML = 'Pesan sudah disalin'
+            let url = 'http://wa.me/+6281515066734?text='; 
+            window.open(url + msg, '_blank'); 
         }
-
+  
         function reset(){
             document.getElementById('name').value = '';
             document.getElementById('alias-tn').checked == false;
             document.getElementById('alias-ny').checked == false;
             document.getElementById('alias-sdr').checked == false;
-            document.getElementById('alias-sdri').checked == false;
-            document.getElementById('alias-an').checked == false; 
-            document.getElementById('mr').value = '';
-            document.getElementById('preview').value = '';
-            document.getElementById('alert').innerHTML = ''; 
-        }
-
-        function send(){
-            let url = 'http://wa.me/+6281515066734';
-            window.open(url, '_blank');
-        }
+            document.getElementById('alias-sdri').checked == false; 
+            document.getElementById('mr').value = '';  
+        } 
     </script>
 </body>
 </html>
