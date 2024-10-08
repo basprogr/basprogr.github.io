@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bas.io</title>
+    <link rel="stylesheet" href="./default.css">
+</head>
+<body>
+    <h2>Ringkasan Pulang</h2> 
+    <table>  
+        <tr>
+            <td>Identitas</td>
+            <td>
+                <input type="radio" name="alias" id="alias-tn">
+                <label for="alias-tn">Tn.</label>
+                &emsp;
+                <input type="radio" name="alias" id="alias-ny">
+                <label for="alias-ny">Ny.</label>
+                &emsp;
+                <input type="radio" name="alias" id="alias-sdr">
+                <label for="alias-sdr">Sdr.</label>
+                &emsp;
+                <input type="radio" name="alias" id="alias-sdri">
+                <label for="alias-sdri">Sdri.</label> 
+                <br><br>
+                <input type="text" id="name" autocomplete="off" placeholder="nama pasien" class="fit">
+                <br><br>
+                <input type="text" id="age" autocomplete="off" placeholder="usia" style="width: 50px;"> tahun<br>
+            </td>
+        </tr>
+        <tr>
+            <td>Diagnosa</td>
+            <td>
+                <input class="fit" type="text" id="diagnosa" autocomplete="off" placeholder="diagnosa">
+            </td>
+        </tr>  
+        <tr>
+            <td>Penunjang</td>
+            <td> 
+                <input type="checkbox" name="penunjang" id="lab" value="Lab"> <label for="lab">Lab</label>&emsp;
+                <input type="checkbox" name="penunjang" id="thorax" value="Thorax"> <label for="thorax">Thorax</label>&emsp;
+                <input type="checkbox" name="penunjang" id="ecg" value="ECG"> <label for="ecg">ECG</label>
+                <hr>
+                <input type="checkbox" name="penunjang" id="usg" value="USG"> <label for="usg">USG</label>&emsp;
+                <input type="checkbox" name="penunjang" id="ctScan" value="CT-Scan"> <label for="ctScan">CT-Scan</label>&emsp;
+                <input type="checkbox" name="penunjang" id="bof" value="BOF"> <label for="bof">BOF</label> 
+            </td>
+        </tr>
+    </table>
+    
+    <h2>Tanda Vital (TTV)</h2> 
+    <table>
+        <tr>
+            <td>Tensi</td>
+            <td>
+                <input type="text" id="sis" autocomplete="off" style="width: 50px;"> /
+                <input type="text" id="dia" autocomplete="off" style="width: 50px;"> mmHg
+            </td>
+        </tr>
+        <tr>
+            <td>Nadi</td>
+            <td><input type="text" id="n" autocomplete="off" style="width: 50px;"> x/menit</td>
+        </tr>
+        <tr>
+            <td>Suhu</td>
+            <td><input type="text" id="s" value="36" autocomplete="off" style="width: 50px;"> C</td>
+        </tr>
+        <tr>
+            <td>RR</td>
+            <td><input type="text" id="rr" value="20" autocomplete="off" style="width: 50px;"> x/w</td>
+        </tr>
+        <tr>
+            <td>SpO2</td>
+            <td><input type="text" id="spo2" autocomplete="off" style="width: 50px;"> %</td>
+        </tr>
+    </table> 
+  
+    <h2>Rencana Kontrol</h2>
+    <table>
+        <tr>
+            <td>Poli</td>
+            <td>
+                <select id="poli"> 
+                    <option value="Bedah">Bedah</option>
+                    <option value="Bedah Digestif">Bedah Digestif</option>
+                    <option value="Bedah Plastik">Bedah Plastik</option>
+                    <option value="BTKV">BTKV</option>
+                    <option value="Jantung Pembuluh Darah">Jantung Pembuluh Darah</option>
+                    <option value="Jiwa">Jiwa</option>
+                    <option value="Mata">Mata</option>
+                    <option value="Obstetri Ginekologi">Obstetri Ginekologi</option>
+                    <option value="Orthopedi">Orthopedi</option>
+                    <option value="Paru">Paru</option>
+                    <option value="Penyakit Dalam">Penyakit Dalam</option>
+                    <option value="Syaraf">Syaraf</option>
+                    <option value="THT">THT</option>
+                    <option value="Urologi">Urologi</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Kontrol</td>
+            <td>
+                <input type="text" id="tanggalKontrol" placeholder="tanggal" autocomplete="off" style="width: 100px;">
+                <input type="text" id="jamKontrol" placeholder="jam" autocomplete="off" style="width: 70px;">
+            </td>
+        </tr>
+        <tr>
+            <td>DPJP</td>
+            <td><input type="text" id="dpjp" placeholder="DPJP" autocomplete="off"></td>
+        </tr>
+    </table>
+    <button type="button" onclick="compose()" style="width: 100%; margin: 10px 0px; height: 50px;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M64 464c-8.8 0-16-7.2-16-16L48 64c0-8.8 7.2-16 16-16l160 0 0 80c0 17.7 14.3 32 32 32l80 0 0 288c0 8.8-7.2 16-16 16L64 464zM64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-293.5c0-17-6.7-33.3-18.7-45.3L274.7 18.7C262.7 6.7 246.5 0 229.5 0L64 0zm56 256c-13.3 0-24 10.7-24 24s10.7 24 24 24l144 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-144 0zm0 96c-13.3 0-24 10.7-24 24s10.7 24 24 24l144 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-144 0z"/></svg>
+        &nbsp;Compose
+    </button>
+
+    <script>
+        function compose(){
+            // tentukan waktu lapor
+            const date = new Date();
+            let hour = date.getHours(); 
+            let sapa; 
+            if (hour < 11) {
+                sapa = 'pagi';
+            } else if (hour > 10 && hour < 15) {
+                sapa = 'siang';    
+            } else if (hour > 14 && hour < 18) {
+                sapa = 'sore';
+            } else {
+                sapa = 'malam';
+            } 
+  
+            // tentukan alias
+            let alias;
+            if (document.getElementById('alias-tn').checked == true) {
+                alias = 'Tn. ';
+            } else if (document.getElementById('alias-ny').checked == true) {
+                alias = 'Ny. ';
+            } else if (document.getElementById('alias-sdr').checked == true) {
+                alias = 'Sdr. ';
+            } else if (document.getElementById('alias-sdri').checked == true) {
+                alias = 'Sdri. ';
+            } else {
+                alias = '';
+            }
+
+            // ubah nama ke huruf besar
+            let getName = document.getElementById('name').value;
+            let name = getName.toUpperCase(); 
+
+            // usia 
+            let age = document.getElementById('age').value;
+
+            // diagnosa 
+            let diagnosa = document.getElementById('diagnosa').value; 
+         
+            let sis = document.getElementById('sis').value;
+            let dia = document.getElementById('dia').value;
+            let n = document.getElementById('n').value;
+            let su = document.getElementById('s').value;
+            let rr = document.getElementById('rr').value;
+            let spo2 = document.getElementById('spo2').value;
+  
+            // cek penunjang
+            let penunjang = document.querySelectorAll('input[type=checkbox]:checked');
+            let listPenunjang = ''; 
+            for (var i = 0; i < penunjang.length; i++) {
+                listPenunjang += '- ' + penunjang[i].value + '%0A';
+            } 
+
+            let poli = document.getElementById('poli').value;
+            let tanggalKontrol = document.getElementById('tanggalKontrol').value;
+            let jamKontrol = document.getElementById('jamKontrol').value;
+            let dpjp = document.getElementById('dpjp').value;
+
+            // compose message
+            let url = 'http://wa.me/+6281515066734?text='; 
+            let msg = 
+                'Selamat ' + sapa + ' dokter, %0A' +
+                'RID minta diisikan ringkasan pulang, %0A%0A' + 
+
+                '*a/n ' + alias + name + ' / ' + age + 'th* %0A%0A' + 
+                
+                '`Diagnosa :` %0A' +
+                diagnosa + '%0A%0A' +
+ 
+                '`Penunjang :` %0A' + 
+                listPenunjang + '%0A%0A' +
+
+                '`TTV :` %0A'+ 
+                '```' + 
+                'GCS  : 456%0A' +
+                'TD   : ' + sis + '/' + dia + ' mmHg%0A' +
+                'Nadi : ' +  n + ' x/menit%0A' +
+                'Suhu : ' +  su + ' C%0A' +
+                'RR   : ' +  rr + ' x%0A' +
+                'Spo2 : ' +  spo2 + ' %' + 
+                '```%0A%0A' +
+
+                '`Obat KRS :` %0A' +
+                '- ' + 
+                '%0A%0A' + 
+
+                '`Rencana Kontrol :` ' +
+                '- Poli ' + poli + '%0A' +
+                '- ' + tanggalKontrol + ', Jam ' + jamKontrol + '%0A' +
+
+                '`DPJP :` %0A' +
+                '- ' + dpjp + '%0A%0A' +
+  
+                'Terimakasih ..';
+                 
+            window.open(url + msg, '_blank'); 
+        }
+
+    </script>
+</body>
+</html>

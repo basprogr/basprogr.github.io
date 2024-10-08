@@ -21,6 +21,10 @@ input{
 input.fit{
     width: 100%;
 }
+select{
+    padding: 5px;
+    border: 1px solid #ccc;
+}
 svg {
     height: 12px;
 }
