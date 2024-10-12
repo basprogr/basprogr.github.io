@@ -41,10 +41,12 @@
                 <br><br>
                 <input type="text" id="name" autocomplete="off" placeholder="nama pasien" class="fit">
                 <br><br>
-                <input type="text" id="mr" autocomplete="off" placeholder="no. RM">
+                <input type="text" id="mr" autocomplete="off" placeholder="nomor rekam medis" style="width: 50%;">
                 <br><br>
                 <input type="text" id="year" placeholder="tahun lahir" style="width: 80px;">
-                <button type="button" onclick="countAge()">></button>
+                <button type="button" onclick="countAge()">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M246.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-9.2-9.2-22.9-11.9-34.9-6.9s-19.8 16.6-19.8 29.6l0 256c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l128-128z"/></svg>
+                </button>
                 <input type="text" id="age" autocomplete="off" placeholder="usia" style="width: 50px;">
             </td>
         </tr>
@@ -214,12 +216,12 @@
 
         <option value="fleet enema ">fleet enema </option>
     </datalist>
-    <button type="button" onclick="attach()">
-        Sisipkan
+    <button type="button" onclick="attach()" style="width: 50px;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M350 334.5c3.8 8.8 2 19-4.6 26l-136 144c-4.5 4.8-10.8 7.5-17.4 7.5s-12.9-2.7-17.4-7.5l-136-144c-6.6-7-8.4-17.2-4.6-26s12.5-14.5 22-14.5l88 0 0-192c0-17.7-14.3-32-32-32L32 96C14.3 96 0 81.7 0 64L0 32C0 14.3 14.3 0 32 0l80 0c70.7 0 128 57.3 128 128l0 192 88 0c9.6 0 18.2 5.7 22 14.5z"/></svg>
     </button>
     <button type="button" onclick="resep()" style="float: right;">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M64 464c-8.8 0-16-7.2-16-16L48 64c0-8.8 7.2-16 16-16l160 0 0 80c0 17.7 14.3 32 32 32l80 0 0 288c0 8.8-7.2 16-16 16L64 464zM64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-293.5c0-17-6.7-33.3-18.7-45.3L274.7 18.7C262.7 6.7 246.5 0 229.5 0L64 0zm56 256c-13.3 0-24 10.7-24 24s10.7 24 24 24l144 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-144 0zm0 96c-13.3 0-24 10.7-24 24s10.7 24 24 24l144 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-144 0z"/></svg>
-        Rx
+        &nbsp;Resep
     </button>
  
     <textarea id="obatLama" rows="10" style="margin-top: 10px;"></textarea>
@@ -283,7 +285,32 @@
             let mr = document.getElementById('mr').value;
 
             // terapi
+
+            // let text = 'antrain 1x1'; 
+            // let regex = text.match(/.{1}[x][0-9]/); 
+            // let split = regex[0].split(""); 
+            // let day3 = split[0] * 3;
+
             let getTerapi = document.getElementById('obatLama').value;
+            
+            let terapiSatuan = getTerapi.split('?');
+
+            let resep = '';
+            for (let i = 0; i < terapiSatuan.length; i++) {
+ 
+                let getAturan = terapiSatuan[i].match(/.{1}[x][0-9]/); 
+                let splitAturan = getAturan[0].split(""); 
+                let day3 = splitAturan[0] * 3;
+
+                let terapiSatuanBaru = terapiSatuan[i] + ' (' + day3 + ') %0A';
+                resep += terapiSatuanBaru;
+            }
+
+
+            // antrain 3x1
+
+
+
             let terapi = getTerapi.replaceAll('?', '%0A');
         
             // rangkai pesan
@@ -295,8 +322,8 @@
                 '```RM   :``` *' + mr + '*%0A' + 
                 '%0A' +
                 
-                terapi +
-                'terimakasih ..'; 
+                terapi + 
+                '%0Aterimakasih ..'; 
 
             let url = 'http://wa.me/+6281515066734?text='; 
             window.open(url + msg, '_blank'); 
@@ -407,7 +434,7 @@
 
                 '`Terapi`%0A' +
                 terapi + 
-                '%0A%0A' +
+                '%0A' +
                 
                 '`Penujang`%0A' +
                 listPenunjang + 
