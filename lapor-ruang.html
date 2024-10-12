@@ -41,7 +41,11 @@
                 <br><br>
                 <input type="text" id="name" autocomplete="off" placeholder="nama pasien" class="fit">
                 <br><br>
-                <input type="text" id="age" autocomplete="off" placeholder="usia" style="width: 50px;"> tahun<br>
+                <input type="text" id="mr" autocomplete="off" placeholder="no. RM">
+                <br><br>
+                <input type="text" id="year" placeholder="tahun lahir" style="width: 80px;">
+                <button type="button" onclick="countAge()">></button>
+                <input type="text" id="age" autocomplete="off" placeholder="usia" style="width: 50px;">
             </td>
         </tr>
         <tr>
@@ -213,7 +217,7 @@
     <button type="button" onclick="attach()">
         Sisipkan
     </button>
-    <button type="button" onclick="attach()" style="float: right;">
+    <button type="button" onclick="resep()" style="float: right;">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M64 464c-8.8 0-16-7.2-16-16L48 64c0-8.8 7.2-16 16-16l160 0 0 80c0 17.7 14.3 32 32 32l80 0 0 288c0 8.8-7.2 16-16 16L64 464zM64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-293.5c0-17-6.7-33.3-18.7-45.3L274.7 18.7C262.7 6.7 246.5 0 229.5 0L64 0zm56 256c-13.3 0-24 10.7-24 24s10.7 24 24 24l144 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-144 0zm0 96c-13.3 0-24 10.7-24 24s10.7 24 24 24l144 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-144 0z"/></svg>
         Rx
     </button>
@@ -226,15 +230,76 @@
     </button>
       
     <script>  
+        function countAge(){
+            let year = document.getElementById('year');
+            let age = 2024 - year.value;
+            document.getElementById('age').value = age;
+        }
         function attach(){ 
             let obatLama = document.getElementById('obatLama');
             let obatBaru = document.getElementById('obatBaru');
             
-            let obatLengkap = obatLama.value + '\r\n- ' + obatBaru.value; 
+            let obatLengkap = obatLama.value + '\r\n- ' + obatBaru.value + '?'; 
             obatLama.value = obatLengkap;
 
             obatBaru.value = '';
             obatBaru.focus();
+        }
+
+        function resep(){ 
+            // tentukan waktu lapor
+            const date = new Date();
+            let hour = date.getHours(); 
+            let sapa; 
+            if (hour < 11) {
+                sapa = 'pagi';
+            } else if (hour > 10 && hour < 15) {
+                sapa = 'siang';    
+            } else if (hour > 14 && hour < 18) {
+                sapa = 'sore';
+            } else {
+                sapa = 'malam';
+            } 
+ 
+            // tentukan alias
+            let alias;
+            if (document.getElementById('alias-tn').checked == true) {
+                alias = 'Tn. ';
+            } else if (document.getElementById('alias-ny').checked == true) {
+                alias = 'Ny. ';
+            } else if (document.getElementById('alias-sdr').checked == true) {
+                alias = 'Sdr. ';
+            } else if (document.getElementById('alias-sdri').checked == true) {
+                alias = 'Sdri. ';
+            } else {
+                alias = '';
+            }
+
+            // ubah nama ke huruf besar
+            let getName = document.getElementById('name').value;
+            let name = getName.toUpperCase();  
+
+            // MR
+            let mr = document.getElementById('mr').value;
+
+            // terapi
+            let getTerapi = document.getElementById('obatLama').value;
+            let terapi = getTerapi.replaceAll('?', '%0A');
+        
+            // rangkai pesan
+            let msg = 
+                'Selamat ' + sapa + ' dokter, RID minta eresep%0A' +
+ 
+                '%0A' + 
+                '```Nama :``` *' + alias + name + '*%0A' +
+                '```RM   :``` *' + mr + '*%0A' + 
+                '%0A' +
+                
+                terapi +
+                'terimakasih ..'; 
+
+            let url = 'http://wa.me/+6281515066734?text='; 
+            window.open(url + msg, '_blank'); 
         }
 
         function compose(){
@@ -317,7 +382,8 @@
             } 
 
             // terapi
-            let terapi = document.getElementById('obatLama').value;
+            let getTerapi = document.getElementById('obatLama').value;
+            let terapi = getTerapi.replaceAll('?', '%0A');
 
             // compose message
             let url = 'http://wa.me/+6281515066734?text='; 
