@@ -241,7 +241,7 @@
             let obatLama = document.getElementById('obatLama');
             let obatBaru = document.getElementById('obatBaru');
             
-            let obatLengkap = obatLama.value + '\r\n- ' + obatBaru.value + '?'; 
+            let obatLengkap = obatLama.value + '- ' + obatBaru.value + '?\r\n'; 
             obatLama.value = obatLengkap;
 
             obatBaru.value = '';
@@ -284,35 +284,25 @@
             // MR
             let mr = document.getElementById('mr').value;
 
-            // terapi
-
-            // let text = 'antrain 1x1'; 
-            // let regex = text.match(/.{1}[x][0-9]/); 
-            // let split = regex[0].split(""); 
-            // let day3 = split[0] * 3;
-
-            let getTerapi = document.getElementById('obatLama').value;
-            
+            // terapi  
+            let getTerapi = document.getElementById('obatLama').value; 
             let terapiSatuan = getTerapi.split('?');
-
-            let resep = '';
-            for (let i = 0; i < terapiSatuan.length; i++) {
+   
+            let terapi = '';
+            for (let i = 0; i < terapiSatuan.length - 1; i++) {
+                // trim new line
+                let trim1 = terapiSatuan[i].replaceAll('\n', '');
+                let trim2 = trim1.replaceAll('\r', '');
+                let trim3 = trim2.replaceAll('\r\n', '');
  
-                let getAturan = terapiSatuan[i].match(/.{1}[x][0-9]/); 
+                let getAturan = trim3.match(/.{1}[x][0-9]/); 
                 let splitAturan = getAturan[0].split(""); 
                 let day3 = splitAturan[0] * 3;
-
-                let terapiSatuanBaru = terapiSatuan[i] + ' (' + day3 + ') %0A';
-                resep += terapiSatuanBaru;
+  
+                let terapiSatuanBaru = trim3 + ' (' + day3 + ') %0A';
+                terapi = terapi + terapiSatuanBaru; 
             }
-
-
-            // antrain 3x1
-
-
-
-            let terapi = getTerapi.replaceAll('?', '%0A');
-        
+  
             // rangkai pesan
             let msg = 
                 'Selamat ' + sapa + ' dokter, RID minta eresep%0A' +
