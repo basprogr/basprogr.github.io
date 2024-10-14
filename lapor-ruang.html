@@ -105,7 +105,11 @@
         </tr>
         <tr>
             <td>SpO2</td>
-            <td><input type="text" id="spo2" autocomplete="off" style="width: 50px;"> %</td>
+            <td>
+                <input type="text" id="spo2" autocomplete="off" style="width: 50px;"> %
+                <input type="text" id="spo2Ket" autocomplete="off" placeholder="keterangan" style="width: 100px;"> lpm  
+
+            </td>
         </tr>
     </table> 
 
@@ -296,10 +300,19 @@
                 let trim3 = trim2.replaceAll('\r\n', '');
  
                 let getAturan = trim3.match(/.{1}[x][0-9]/); 
-                let splitAturan = getAturan[0].split(""); 
-                let day3 = splitAturan[0] * 3;
-  
+                
+                let day3;
+                if (getAturan == null) {
+                    day3 = 2;
+                } else {
+                    let splitAturan = getAturan[0].split(""); 
+                    day3 = splitAturan[0] * 3;
+                }
+
                 let terapiSatuanBaru = trim3 + ' (' + day3 + ') %0A';
+                
+                console.log(terapiSatuanBaru);
+
                 terapi = terapi + terapiSatuanBaru; 
             }
   
@@ -380,8 +393,16 @@
             let n = document.getElementById('n').value;
             let su = document.getElementById('s').value;
             let rr = document.getElementById('rr').value;
-            let spo2 = document.getElementById('spo2').value;
 
+            let getSpo2 = document.getElementById('spo2').value;
+            let getSpo2Ket = document.getElementById('spo2Ket').value;
+            let spo2;
+            if (getSpo2Ket == '') {
+                spo2 = getSpo2 + '%';
+            } else {
+                spo2 = getSpo2 + '% ' + getSpo2Ket + 'lpm'; 
+            }
+ 
             // Rencana tindakan
             let tindakan;
             let getTindakan = document.getElementById('tindakan').value;
@@ -419,7 +440,7 @@
                 'Nadi : ' +  n + ' x/menit%0A' +
                 'Suhu : ' +  su + ' C%0A' +
                 'RR   : ' +  rr + ' x%0A' +
-                'Spo2 : ' +  spo2 + ' %' + 
+                'Spo2 : ' +  spo2 + 
                 '```%0A%0A' +
 
                 '`Terapi`%0A' +

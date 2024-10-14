@@ -72,7 +72,10 @@
         </tr>
         <tr>
             <td>SpO2</td>
-            <td><input type="text" id="spo2" autocomplete="off" style="width: 50px;"> %</td>
+            <td>
+                <input type="text" id="spo2" autocomplete="off" style="width: 50px;"> %
+                <input type="text" id="spo2Ket" autocomplete="off" placeholder="keterangan" style="width: 100px;"> lpm  
+            </td>
         </tr>
     </table> 
   
@@ -161,7 +164,15 @@
             let n = document.getElementById('n').value;
             let su = document.getElementById('s').value;
             let rr = document.getElementById('rr').value;
-            let spo2 = document.getElementById('spo2').value;
+
+            let getSpo2 = document.getElementById('spo2').value;
+            let getSpo2Ket = document.getElementById('spo2Ket').value;
+            let spo2;
+            if (getSpo2Ket == '') {
+                spo2 = getSpo2 + '%';
+            } else {
+                spo2 = getSpo2 + '% ' + getSpo2Ket + 'lpm'; 
+            }
   
             // cek penunjang
             let penunjang = document.querySelectorAll('input[type=checkbox]:checked');
@@ -196,7 +207,7 @@
                 'Nadi : ' +  n + ' x/menit%0A' +
                 'Suhu : ' +  su + ' C%0A' +
                 'RR   : ' +  rr + ' x%0A' +
-                'Spo2 : ' +  spo2 + ' %' + 
+                'Spo2 : ' +  spo2 +
                 '```%0A%0A' +
 
                 '`Obat KRS :` %0A' +
