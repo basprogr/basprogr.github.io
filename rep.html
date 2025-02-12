@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./default.css"> 
+    <title>bas</title>
+</head>
+<body>
+    <h2>Asesmen</h2> 
+    <table> 
+        <tr>
+            <td>Asal</td>
+            <td>
+                <input type="radio" name="pin" id="pin-igd">
+                <label for="pin-igd">IGD</label>
+                &emsp;
+                <input type="radio" name="pin" id="pin-rps">
+                <label for="pin-rps">RPS</label> 
+                &emsp;
+                <input type="text" id="pin-lain" autocomplete="off" placeholder="unit lain" style="width: 60px;">
+                <button type="button" onclick="resetPindahan()">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M463.5 224l8.5 0c13.3 0 24-10.7 24-24l0-128c0-9.7-5.8-18.5-14.8-22.2s-19.3-1.7-26.2 5.2L413.4 96.6c-87.6-86.5-228.7-86.2-315.8 1c-87.5 87.5-87.5 229.3 0 316.8s229.3 87.5 316.8 0c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0c-62.5 62.5-163.8 62.5-226.3 0s-62.5-163.8 0-226.3c62.2-62.2 162.7-62.5 225.3-1L327 183c-6.9 6.9-8.9 17.2-5.2 26.2s12.5 14.8 22.2 14.8l119.5 0z"/></svg>
+                </button>
+            </td>
+        </tr>
+        <tr>
+            <td>Identitas</td>
+            <td>
+                <input type="radio" name="alias" id="alias-tn">
+                <label for="alias-tn">Tn.</label>
+                &emsp;
+                <input type="radio" name="alias" id="alias-ny">
+                <label for="alias-ny">Ny.</label>
+                &emsp;
+                <input type="radio" name="alias" id="alias-sdr">
+                <label for="alias-sdr">Sdr.</label>
+                &emsp;
+                <input type="radio" name="alias" id="alias-sdri">
+                <label for="alias-sdri">Sdri.</label> 
+                <br><br>
+                <input type="text" id="name" autocomplete="off" placeholder="nama pasien" class="fit">
+                <br><br>
+                <input type="text" id="mr" autocomplete="off" placeholder="nomor rekam medis" style="width: 50%;">
+                <br><br>
+                <input type="text" id="year" placeholder="tahun lahir" style="width: 80px;">
+                <button type="button" onclick="countAge()">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M246.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-9.2-9.2-22.9-11.9-34.9-6.9s-19.8 16.6-19.8 29.6l0 256c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l128-128z"/></svg>
+                </button>
+                <input type="text" id="age" autocomplete="off" placeholder="usia" style="width: 50px;">
+            </td>
+        </tr>
+        <tr>
+            <td>Diagnosa</td>
+            <td>
+                <input class="fit" type="text" id="diagnosa" autocomplete="off" placeholder="diagnosa">
+            </td>
+        </tr>
+        <tr>
+            <td>Keluhan</td>
+            <td>
+                <textarea id="keluhan" rows="4" placeholder="keluhan"></textarea>
+            </td>
+        </tr> 
+        <tr>
+            <td>Tindakan</td>
+            <td>
+                <input class="fit" type="text" id="tindakan" autocomplete="off" placeholder="tindakan">
+            </td>
+        </tr>
+        <tr>
+            <td>Penunjang</td>
+            <td> 
+                <input type="checkbox" name="penunjang" id="lab" value="Lab"> <label for="lab">Lab</label>&emsp;
+                <input type="checkbox" name="penunjang" id="thorax" value="Thorax"> <label for="thorax">Thorax</label>&emsp;
+                <input type="checkbox" name="penunjang" id="ecg" value="ECG"> <label for="ecg">ECG</label>
+                <hr>
+                <input type="checkbox" name="penunjang" id="usg" value="USG"> <label for="usg">USG</label>&emsp;
+                <input type="checkbox" name="penunjang" id="ctScan" value="CT-Scan"> <label for="ctScan">CT-Scan</label>&emsp;
+                <input type="checkbox" name="penunjang" id="bof" value="BOF"> <label for="bof">BOF</label> 
+            </td>
+        </tr>
+    </table>
+    
+    <h2>Tanda Vital (TTV)</h2> 
+    <table>
+        <tr>
+            <td>Tensi</td>
+            <td>
+                <input type="text" id="sis" autocomplete="off" style="width: 50px;"> /
+                <input type="text" id="dia" autocomplete="off" style="width: 50px;"> mmHg
+            </td>
+        </tr>
+        <tr>
+            <td>Nadi</td>
+            <td><input type="text" id="n" autocomplete="off" style="width: 50px;"> x/menit</td>
+        </tr>
+        <tr>
+            <td>Suhu</td>
+            <td><input type="text" id="s" value="36" autocomplete="off" style="width: 50px;"> C</td>
+        </tr>
+        <tr>
+            <td>RR</td>
+            <td><input type="text" id="rr" value="20" autocomplete="off" style="width: 50px;"> x/w</td>
+        </tr>
+        <tr>
+            <td>SpO2</td>
+            <td>
+                <input type="text" id="spo2" autocomplete="off" style="width: 50px;"> %
+                <input type="text" id="spo2Ket" autocomplete="off" placeholder="keterangan" style="width: 100px;"> lpm  
+
+            </td>
+        </tr>
+    </table> 
+
+    <h2>Terapi</h2>
+    <input type="text" id="obatBaru" list="listTerapi" autocomplete="off" style="width: 50%; ">
+    <datalist id="listTerapi">
+        <option value="inf. Asering ">inf. Asering</option>
+        <option value="inf. B-Fluid ">inf. B-Fluid</option>
+        <option value="inf. B-Fluid ">inf. B-Fluid</option>
+        <option value="inf. D5 ">inf. D5</option>
+        <option value="inf. D10 ">inf. D10</option>
+        <option value="inf. futrolit ">inf. futrolit</option>
+        <option value="inf. NS ">inf. NS</option>
+        <option value="inf. RL ">inf. RL</option>
+        <option value="inf. metronidazole ">inf. metronidazole</option>
+        <option value="inf. paracetamol ">inf. paracetamol</option>
+
+        <option value="inj. antrain ">inj. antrain</option>
+        <option value="inj. apidra ">inj. apidra</option>
+        <option value="inj. cefazoline ">inj. cefazoline</option>
+        <option value="inj. cefoperazone ">inj. cefoperazone</option>
+        <option value="inj. cefotaxime ">inj. cefotaxime</option>
+        <option value="inj. ceftizoxime ">inj. ceftizoxime</option>
+        <option value="inj. ceftriaxone ">inj. ceftriaxone</option>
+        <option value="inj. cernevit ">inj. cernevit</option>
+        <option value="inj. clanexy ">inj. clanexy</option>
+        <option value="inj. co-amoxyclav ">inj. co-amoxyclav</option>
+        <option value="inj. dexametasone ">inj. dexametasone</option>
+        <option value="inj. dipenhidramine ">inj. dipenhidramine</option>
+        <option value="inj. fartison ">inj. fartison</option>
+        <option value="inj. furamin ">inj. furamin</option>
+        <option value="inj. ibuprofen ">inj. ibuprofen</option>
+        <option value="inj. ketorolac ">inj. ketorolac</option>
+        <option value="inj. lansoprazole ">inj. lansoprazole</option>
+        <option value="inj. lantus ">inj. lantus</option>
+        <option value="inj. levemir ">inj. levemir</option>
+        <option value="inj. lidocain ">inj. lidocain</option>
+        <option value="inj. methylprednisolon ">inj. methylprednisolon</option>
+        <option value="inj. metoclopramid ">inj. metoclopramid</option>
+        <option value="inj. neurobion ">inj. neurobion</option>
+        <option value="inj. novorapid ">inj. novorapid</option>
+        <option value="inj. omeprazole ">inj. omeprazole</option>
+        <option value="inj. ondansetron ">inj. ondansetron</option>
+        <option value="inj. painloss ">inj. painloss</option>
+        <option value="inj. pantoprazole ">inj. pantoprazole</option>
+        <option value="inj. primperan ">inj. primperan</option>
+        <option value="inj. ranitidine ">inj. ranitidine</option>
+        <option value="inj. ryzodeg ">inj. ryzodeg</option>
+        <option value="inj. sansulin ">inj. sansulin</option>
+        <option value="inj. sotatic ">inj. sotatic</option>
+        <option value="inj. tramadol ">inj. tramadol</option>
+        <option value="inj. vit K ">inj. vit K</option>
+
+        <option value="po. acarbose ">po. acarbose</option>
+        <option value="po. acitral ">po. acitral</option>
+        <option value="po. adalat oros ">po. adalat oros</option>
+        <option value="po. ardium ">po. ardium</option>
+        <option value="po. alprazolam ">po. alprazolam</option>
+        <option value="po. amlodipin ">po. amlodipin</option> 
+        <option value="po. amoxycilin ">po. amoxycilin</option> 
+        <option value="po. ambroxol ">po. ambroxol</option> 
+        <option value="po. ASA ">po. ASA</option>
+        <option value="po. asam folat ">po. asam folat</option>
+        <option value="po. asam mefenamat ">po. asam mefenamat</option>
+        <option value="po. asam traneksamat ">po. asam traneksamat</option>
+        <option value="po. aspilet ">po. aspilet</option>
+        <option value="po. attapulgit ">po. attapulgit</option>
+        <option value="po. B1 ">po. B1</option>
+        <option value="po. B2 ">po. B2</option>
+        <option value="po. B6 ">po. B6</option>
+        <option value="po. B12 ">po. B12</option>
+        <option value="po. betahistin ">po. betahistin</option>
+        <option value="po. candesartan ">po. candesartan</option>
+        <option value="po. captopril ">po. captopril</option>
+        <option value="po. caviplex ">po. caviplex</option>
+        <option value="po. cefadroxil ">po. cefadroxil</option>
+        <option value="po. cefixime ">po. cefixime</option>
+        <option value="po. clobazam ">po. clobazam</option>
+        <option value="po. clopidogrel ">po. clopidogrel</option>
+        <option value="po. dimenhidrinate ">po. dimenhidrinate</option>
+        <option value="po. dramamin ">po. dramamin</option>
+        <option value="po. furosemid ">po. furosemid</option>
+        <option value="po. glibenclamide ">po. glibenclamide</option>
+        <option value="po. glimepiride ">po. glimepiride</option>
+        <option value="po. harnal ocas ">po. harnal ocas</option>
+        <option value="po. ibuprofen ">po. ibuprofen</option>
+        <option value="po. inbion ">po. inbion</option>
+        <option value="po. KSR ">po. KSR</option>
+        <option value="po. lansoprazole ">po. lansoprazole</option>
+        <option value="po. metformin ">po. metformin</option>
+        <option value="po. methylprednisolon ">po. methylprednisolon</option>
+        <option value="po. neurobion ">po. neurobion</option>
+        <option value="po. omeprazole ">po. omeprazole</option>
+        <option value="po. pantoprazole ">po. pantoprazole</option>
+        <option value="po. paracetamol ">po. paracetamol</option>
+        <option value="po. pioglitasone ">po. pioglitasone</option>
+        <option value="po. prorenal ">po. prorenal</option>
+        <option value="po. salofalk ">po. salofalk</option>
+        <option value="po. sucralfat ">po. sucralfat</option>
+        <option value="po. urdafalk ">po. urdafalk</option>
+        <option value="po. urotractin ">po. urotractin</option>
+        <option value="po. zink ">po. zink</option>
+
+        <option value="neb. combiven ">neb. combiven</option>
+        <option value="neb. farbiven ">neb. farbiven</option>
+        <option value="neb. pulmicort ">neb. pulmicort</option>
+        <option value="neb. ventolin ">neb. ventolin</option>
+
+        <option value="fleet enema ">fleet enema </option>
+    </datalist>
+    <button type="button" onclick="attach()" style="width: 50px;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M350 334.5c3.8 8.8 2 19-4.6 26l-136 144c-4.5 4.8-10.8 7.5-17.4 7.5s-12.9-2.7-17.4-7.5l-136-144c-6.6-7-8.4-17.2-4.6-26s12.5-14.5 22-14.5l88 0 0-192c0-17.7-14.3-32-32-32L32 96C14.3 96 0 81.7 0 64L0 32C0 14.3 14.3 0 32 0l80 0c70.7 0 128 57.3 128 128l0 192 88 0c9.6 0 18.2 5.7 22 14.5z"/></svg>
+    </button>
+    <button type="button" onclick="resep()" style="float: right;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M64 464c-8.8 0-16-7.2-16-16L48 64c0-8.8 7.2-16 16-16l160 0 0 80c0 17.7 14.3 32 32 32l80 0 0 288c0 8.8-7.2 16-16 16L64 464zM64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-293.5c0-17-6.7-33.3-18.7-45.3L274.7 18.7C262.7 6.7 246.5 0 229.5 0L64 0zm56 256c-13.3 0-24 10.7-24 24s10.7 24 24 24l144 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-144 0zm0 96c-13.3 0-24 10.7-24 24s10.7 24 24 24l144 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-144 0z"/></svg>
+        &nbsp;Resep
+    </button>
+ 
+    <textarea id="obatLama" rows="10" style="margin-top: 10px;"></textarea>
+
+    <button type="button" onclick="compose()" style="width: 100%; height: 50px; margin: 10px 0px;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M64 464c-8.8 0-16-7.2-16-16L48 64c0-8.8 7.2-16 16-16l160 0 0 80c0 17.7 14.3 32 32 32l80 0 0 288c0 8.8-7.2 16-16 16L64 464zM64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-293.5c0-17-6.7-33.3-18.7-45.3L274.7 18.7C262.7 6.7 246.5 0 229.5 0L64 0zm56 256c-13.3 0-24 10.7-24 24s10.7 24 24 24l144 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-144 0zm0 96c-13.3 0-24 10.7-24 24s10.7 24 24 24l144 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-144 0z"/></svg>
+        Compose
+    </button>
+      
+    <script>  
+        function countAge(){
+            let year = document.getElementById('year');
+            let age = 2024 - year.value;
+            document.getElementById('age').value = age;
+        }
+        function attach(){ 
+            let obatLama = document.getElementById('obatLama');
+            let obatBaru = document.getElementById('obatBaru');
+            
+            let obatLengkap = obatLama.value + '- ' + obatBaru.value + '?\r\n'; 
+            obatLama.value = obatLengkap;
+
+            obatBaru.value = '';
+            obatBaru.focus();
+        }
+
+        function resep(){ 
+            // tentukan waktu lapor
+            const date = new Date();
+            let hour = date.getHours(); 
+            let sapa; 
+            if (hour < 11) {
+                sapa = 'pagi';
+            } else if (hour > 10 && hour < 15) {
+                sapa = 'siang';    
+            } else if (hour > 14 && hour < 18) {
+                sapa = 'sore';
+            } else {
+                sapa = 'malam';
+            } 
+ 
+            // tentukan alias
+            let alias;
+            if (document.getElementById('alias-tn').checked == true) {
+                alias = 'Tn. ';
+            } else if (document.getElementById('alias-ny').checked == true) {
+                alias = 'Ny. ';
+            } else if (document.getElementById('alias-sdr').checked == true) {
+                alias = 'Sdr. ';
+            } else if (document.getElementById('alias-sdri').checked == true) {
+                alias = 'Sdri. ';
+            } else {
+                alias = '';
+            }
+
+            // ubah nama ke huruf besar
+            let getName = document.getElementById('name').value;
+            let name = getName.toUpperCase();  
+
+            // MR
+            let mr = document.getElementById('mr').value;
+
+            // terapi  
+            let getTerapi = document.getElementById('obatLama').value; 
+            let terapiSatuan = getTerapi.split('?');
+   
+            let terapi = '';
+            for (let i = 0; i < terapiSatuan.length - 1; i++) {
+                // trim new line
+                let trim1 = terapiSatuan[i].replaceAll('\n', '');
+                let trim2 = trim1.replaceAll('\r', '');
+                let trim3 = trim2.replaceAll('\r\n', '');
+ 
+                let getAturan = trim3.match(/.{1}[x][0-9]/); 
+                
+                let day3;
+                if (getAturan == null) {
+                    day3 = 2;
+                } else {
+                    let splitAturan = getAturan[0].split(""); 
+                    day3 = splitAturan[0] * 3;
+                }
+
+                let terapiSatuanBaru = trim3 + ' (' + day3 + ') %0A';
+                
+                console.log(terapiSatuanBaru);
+
+                terapi = terapi + terapiSatuanBaru; 
+            }
+  
+            // rangkai pesan
+            let msg = 
+                'Selamat ' + sapa + ' dokter, RID minta eresep%0A' +
+ 
+                '%0A' + 
+                '```Nama :``` *' + alias + name + '*%0A' +
+                '```RM   :``` *' + mr + '*%0A' + 
+                '%0A' +
+                
+                terapi + 
+                '%0Aterimakasih ..'; 
+
+            let url = 'http://wa.me/+6281515066734?text='; 
+            window.open(url + msg, '_blank'); 
+        }
+
+        function compose(){
+            // tentukan waktu lapor
+            const date = new Date();
+            let hour = date.getHours(); 
+            let sapa; 
+            if (hour < 11) {
+                sapa = 'pagi';
+            } else if (hour > 10 && hour < 15) {
+                sapa = 'siang';    
+            } else if (hour > 14 && hour < 18) {
+                sapa = 'sore';
+            } else {
+                sapa = 'malam';
+            } 
+
+            // pindahan
+            let pindahan;
+            if (document.getElementById('pin-igd').checked == true) {
+                pindahan = 'IGD';
+            } else if (document.getElementById('pin-rps').checked == true) {
+                pindahan = 'RPS';
+            } else {
+                pindahan = document.getElementById('pin-lain').value;
+            } 
+ 
+            // tentukan alias
+            let alias;
+            if (document.getElementById('alias-tn').checked == true) {
+                alias = 'Tn. ';
+            } else if (document.getElementById('alias-ny').checked == true) {
+                alias = 'Ny. ';
+            } else if (document.getElementById('alias-sdr').checked == true) {
+                alias = 'Sdr. ';
+            } else if (document.getElementById('alias-sdri').checked == true) {
+                alias = 'Sdri. ';
+            } else {
+                alias = '';
+            }
+
+            // ubah nama ke huruf besar
+            let getName = document.getElementById('name').value;
+            let name = getName.toUpperCase(); 
+
+            // usia 
+            let age = document.getElementById('age').value;
+
+            // dengan diagnosa atau tidak
+            let diagnosa;
+            let getDiagnosa = document.getElementById('diagnosa').value;
+            if (getDiagnosa == '') {
+                diagnosa = '%0A%0A';
+            } else {
+                diagnosa = '%0Adengan ' + getDiagnosa + '%0A%0A';
+            } 
+        
+            let keluhan = document.getElementById('keluhan').value;
+            let sis = document.getElementById('sis').value;
+            let dia = document.getElementById('dia').value;
+            let n = document.getElementById('n').value;
+            let su = document.getElementById('s').value;
+            let rr = document.getElementById('rr').value;
+
+            let getSpo2 = document.getElementById('spo2').value;
+            let getSpo2Ket = document.getElementById('spo2Ket').value;
+            let spo2;
+            if (getSpo2Ket == '') {
+                spo2 = getSpo2 + '%';
+            } else {
+                spo2 = getSpo2 + '% ' + getSpo2Ket + 'lpm'; 
+            }
+ 
+            // Rencana tindakan
+            let tindakan;
+            let getTindakan = document.getElementById('tindakan').value;
+            if (getTindakan == '') {
+                tindakan = '%0A';
+            } else {
+                tindakan = '%0A`Rencana Tindakan`%0A' + '- ' + getTindakan + '%0A%0A';
+            } 
+
+            // cek penunjang
+            let penunjang = document.querySelectorAll('input[type=checkbox]:checked');
+            let listPenunjang = ''; 
+            for (var i = 0; i < penunjang.length; i++) {
+                listPenunjang += '- ' + penunjang[i].value + '%0A';
+            } 
+
+            // terapi
+            let getTerapi = document.getElementById('obatLama').value;
+            let terapi = getTerapi.replaceAll('?', '%0A');
+
+            // compose message
+            let url = 'http://wa.me/+6281515066734?text='; 
+            let msg = 
+                'Selamat ' + sapa + ' dokter,%0A' +
+                'Melaporkan pasien baru pindahan dari ' + pindahan + '%0A%0A' + 
+                '*a/n ' + alias + name + ' / ' + age + 'th*' + 
+                
+                diagnosa +
+                
+                'Keluhan : ' + keluhan + '%0A%0A' +
+ 
+                '```' + 
+                'GCS  : 456%0A' +
+                'TD   : ' + sis + '/' + dia + ' mmHg%0A' +
+                'Nadi : ' +  n + ' x/menit%0A' +
+                'Suhu : ' +  su + ' C%0A' +
+                'RR   : ' +  rr + ' x%0A' +
+                'Spo2 : ' +  spo2 + 
+                '```%0A%0A' +
+
+                '`Terapi`%0A' +
+                terapi + 
+                '%0A' +
+                
+                '`Penujang`%0A' +
+                listPenunjang + 
+                
+                tindakan + 
+ 
+                'Apakah ada advis tambahan dokter? %0A' +
+                'Terimakasih ..';
+                 
+            window.open(url + msg, '_blank'); 
+        }
+
+        function resetPindahan(){  
+            document.getElementById('pin-igd').checked = false;
+            document.getElementById('pin-rps').checked = false;
+            document.getElementById('pin-lain').value = '';
+        }   
+    </script>
+</body>
+</html>

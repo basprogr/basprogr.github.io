@@ -1,22 +1,22 @@
 *{
-    box-sizing: border-box !important;
-}
-body{
-    font-family: sans-serif;
+    box-sizing: border-box !important; 
+    font-family: 'consolas', monospace;
     font-size: 12px;
-}
-button{
+} 
+button{  
     height: 27px;
     padding: 0 10px;
     border: 1px solid #ccc; 
+    border-radius: 4px;
 }
 hr{
     border: none;
-    border-top: 1px solid #ccc
+    border-top: 1px solid #eee;
 }
 input{
     padding: 5px;
     border: 1px solid #ccc; 
+    border-radius: 4px;
 }
 input.fit{
     width: 100%;

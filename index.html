@@ -3,40 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>bas</title>
-
+    <title>bas</title> 
     <link rel="stylesheet" href="./default.css">
-    <style> 
-        button{ display: block; width: 100%; height: 50px; margin-bottom: 10px; padding: 15px; }
-    </style>
 </head>
-<body>
-    <button type="button" onclick="window.open('./lapor-ruang.html', '_self')">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M512 80c8.8 0 16 7.2 16 16l0 320c0 8.8-7.2 16-16 16L64 432c-8.8 0-16-7.2-16-16L48 96c0-8.8 7.2-16 16-16l448 0zM64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l448 0c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64L64 32zM208 256a64 64 0 1 0 0-128 64 64 0 1 0 0 128zm-32 32c-44.2 0-80 35.8-80 80c0 8.8 7.2 16 16 16l192 0c8.8 0 16-7.2 16-16c0-44.2-35.8-80-80-80l-64 0zM376 144c-13.3 0-24 10.7-24 24s10.7 24 24 24l80 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-80 0zm0 96c-13.3 0-24 10.7-24 24s10.7 24 24 24l80 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-80 0z"/></svg>
-        &nbsp;Lapor Pasien Baru
-    </button>
-    <button type="button" onclick="window.open('./resep.html', '_self')">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M64 464c-8.8 0-16-7.2-16-16L48 64c0-8.8 7.2-16 16-16l160 0 0 80c0 17.7 14.3 32 32 32l80 0 0 288c0 8.8-7.2 16-16 16L64 464zM64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-293.5c0-17-6.7-33.3-18.7-45.3L274.7 18.7C262.7 6.7 246.5 0 229.5 0L64 0zm56 256c-13.3 0-24 10.7-24 24s10.7 24 24 24l144 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-144 0zm0 96c-13.3 0-24 10.7-24 24s10.7 24 24 24l144 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-144 0z"/></svg>
-        &nbsp;Resep
-    </button>  
-    <button type="button" onclick="window.open('./ringkasan-pulang.html', '_self')">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M168 80c-13.3 0-24 10.7-24 24l0 304c0 8.4-1.4 16.5-4.1 24L440 432c13.3 0 24-10.7 24-24l0-304c0-13.3-10.7-24-24-24L168 80zM72 480c-39.8 0-72-32.2-72-72L0 112C0 98.7 10.7 88 24 88s24 10.7 24 24l0 296c0 13.3 10.7 24 24 24s24-10.7 24-24l0-304c0-39.8 32.2-72 72-72l272 0c39.8 0 72 32.2 72 72l0 304c0 39.8-32.2 72-72 72L72 480zM176 136c0-13.3 10.7-24 24-24l96 0c13.3 0 24 10.7 24 24l0 80c0 13.3-10.7 24-24 24l-96 0c-13.3 0-24-10.7-24-24l0-80zm200-24l32 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-32 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm0 80l32 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-32 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zM200 272l208 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-208 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm0 80l208 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-208 0c-13.3 0-24-10.7-24-24s10.7-24 24-24z"/></svg>        
-        &nbsp;Ringkasan Pulang
-    </button>  
+<body> 
 
+    <form action="https://www.google.com/search" method="get">
+        <input type="text" name="q">
+        <button type="submit">Search</button>
+    </form>
+    <hr>
+  
+    <div> 
+        <button type="button" onclick="window.open('./rep.html', '_self')">rep</button>
+        <button type="button" onclick="window.open('./rx.html', '_self')">rx</button>
+        <button type="button" onclick="window.open('./res.html', '_self')">res</button>
 
-    <h2>Playground</h2>
-    <ul>
-        <li><a href="https://go.dev/play/">Golang</a></li>
-        <li><a href="https://www.jsplayground.dev">Javascript</a></li>
-        <li><a href="https://php-play.dev/">PHP</a></li>
-    </ul>
+        <button type="button" onclick="document.getElementById('usr').style.display='block'">usr</button>
+    </div>
+    <hr>
     
-    <h2>Proxy</h2>
-    <ul>
-        <li><a href="https://www.proxysite.com">Web 1</a></li>
-        <li><a href="https://www.croxyproxy.com">Web 2</a></li>
-    </ul>
-
+    <div>
+        <button type="button" onclick="window.open('https:/'+'/www.proxysite.com', '_self')">ps</button>
+        <button type="button" onclick="window.open('https:/'+'/www.croxyproxy.com', '_self')">cp</button>
+    </div>
+    <hr>
+  
+    <table id="usr" style="display: none;">
+        <tr><td>AB</td>     <td>10216046</td> <td>1234</td></tr> 
+        <tr><td>AJI</td>    <td>10202041</td> <td>1234</td></tr>
+        <tr><td>AR</td>     <td>10214073</td> <td>1234</td></tr> 
+        <tr><td>AT</td>     <td>10217073</td> <td>1234</td></tr> 
+        <tr><td>AW</td>     <td>10205002</td> <td>1234</td></tr> 
+        <tr><td>ASW</td>    <td>10206042</td> <td>4572</td></tr>
+        <tr><td>AFP</td>    <td>10220072</td> <td>1234</td></tr>
+        <tr><td>BS</td>     <td>10205004</td> <td>1234</td></tr>
+        <tr><td>BON</td>    <td>10208063</td> <td>1303</td></tr>
+        <tr><td>CK</td>     <td>10218045</td> <td>1234</td></tr>
+        <tr><td>DR</td>     <td>10207050</td> <td>2511</td></tr>
+        <tr><td>EM</td>     <td>10220070</td> <td>1234</td></tr>
+        <tr><td>ER</td>     <td>10217024</td> <td>1234</td></tr>
+        <tr><td>FM</td>     <td>10217065</td> <td>1234</td></tr> 
+        <tr><td>FR</td>     <td>10220015</td> <td>1234</td></tr> 
+        <tr><td>FIT</td>    <td>10220015</td> <td>1234</td></tr> 
+        <tr><td>HM</td>     <td>10206024</td> <td>1234</td></tr>
+        <tr><td>HS</td>     <td>10221022</td> <td>1234</td></tr>
+        <tr><td>HW</td>     <td>10209079</td> <td>8888</td></tr>
+        <tr><td>IBP</td>    <td>10207059</td> <td>1234</td></tr> 
+        <tr><td>ISB</td>    <td>10218018</td> <td>1234</td></tr> 
+        <tr><td>KK</td>     <td>10206016</td> <td>1234</td></tr>
+        <tr><td>MVE</td>    <td>10220155</td> <td>1234</td></tr>
+        <tr><td>NRK</td>    <td>10217051</td> <td>1234</td></tr>
+        <tr><td>NR</td>     <td>10212071</td> <td>1234</td></tr>
+        <tr><td>NSM</td>    <td>10224110</td> <td>1234</td></tr> 
+        <tr><td>RH</td>     <td>10206043</td> <td>1234</td></tr>
+        <tr><td>ROM</td>    <td>10218142</td> <td>1234</td></tr>
+        <tr><td>RW</td>     <td>10215178</td> <td>1234</td></tr>
+        <tr><td>SJ</td>     <td>10217045</td> <td>1234</td></tr>
+        <tr><td>SH</td>     <td>10216084</td> <td>1234</td></tr>
+        <tr><td>SP</td>     <td>10222018</td> <td>ITIK</td></tr>
+        <tr><td>SS</td>     <td>10206040</td> <td>ITIK</td></tr>
+        <tr><td>SWJ</td>    <td>10212052</td> <td>1234</td></tr>
+        <tr><td>TA</td>     <td>10220135</td> <td>1234</td></tr>
+        <tr><td>WMS</td>    <td>10210083</td> <td>1234</td></tr>
+        <tr><td>YAP</td>    <td>10218142</td> <td>1234</td></tr>
+        <tr><td>YAS</td>    <td>10112054</td> <td>1234</td></tr>
+        <tr><td>YW</td>     <td>10217043</td> <td>1234</td></tr>
+        <tr><td>ZA</td>     <td>10221101</td> <td>1234</td></tr>
+    </table>
 </body>
 </html>
