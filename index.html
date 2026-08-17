@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --bg: #fafafa;
+      --card-bg: #ffffff;
+      --card-border: #e5e7eb;
+      --text-main: #111827;
+      --text-muted: #6b7280;
+      --accent-orange: #aa5a20;
+      --accent-blue: #598eff;
+      --accent-emerald: #059669;
+      --accent-purple: #7c3aed; 
+      --accent-gray: #4e4e4e; 
+    }
+
+    * {
+    font-family: monospace;
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body { 
+      background-color: var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .header h1 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text-main);
+    }
+
+    .header p {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .app-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .app-card {
+      display: flex;
+      align-items: center;
+      padding: 20px 24px;
+      background-color: var(--card-bg);
+      border: 2px solid var(--card-border);
+      border-radius: 12px;
+      text-decoration: none;
+      color: var(--text-main);
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+    }
+
+    .app-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .app-card.orange {
+      border-left: 6px solid var(--accent-orange);
+    }
+    .app-card.orange:hover {
+      border-color: var(--accent-orange);
+    }
+
+    .app-card.blue {
+      border-left: 6px solid var(--accent-blue);
+    }
+    .app-card.blue:hover {
+      border-color: var(--accent-blue);
+    }
+
+    .app-card.gray {
+      border-left: 6px solid var(--accent-gray);
+    }
+    .app-card.gray:hover {
+      border-color: var(--accent-gray);
+    }
+
+    .app-card.purple {
+      border-left: 6px solid var(--accent-purple);
+    }
+    .app-card.purple:hover {
+      border-color: var(--accent-purple);
+    }
+
+    .app-icon {
+      font-size: 32px;
+      margin-right: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      background: var(--bg);
+      border-radius: 10px;
+    }
+
+    .app-info {
+      flex: 1;
+    }
+
+    .app-title {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .app-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .arrow-icon {
+      font-size: 18px;
+      color: var(--text-muted);
+      transition: transform 0.2s ease;
+    }
+
+    .app-card:hover .arrow-icon {
+      transform: translateX(4px);
+      color: var(--text-main);
+    } 
+    #main { height: 200px; width: 100%; max-width: 500px; display: flex; }
+    .child { flex: 1; }  
+  </style>
+</head>
+<body>
+
+  <div class="container">  
+    <div class="app-grid">
+      <!-- Button Aplikasi Logbook -->
+      <a href="logbook/index.html" class="app-card orange">
+        <div class="app-icon">📋</div>
+        <div class="app-info">
+          <div class="app-title">
+            <span>Logbook</span>
+            <span class="arrow-icon">➔</span>
+          </div>
+          <div class="app-desc">Catatan tugas dan terapi harian</div>
+        </div>
+      </a>
+
+      <!-- Placeholder Aplikasi Lain 1 -->
+      <a href="https://converails.fwh.is" class="app-card blue">
+        <div class="app-icon">📩</div>
+        <div class="app-info">
+          <div class="app-title">
+            <span>Converails</span>
+            <span class="arrow-icon">➔</span>
+          </div>
+          <div class="app-desc">Temporary Conversation</div>
+        </div>
+      </a>
+
+      <!-- Placeholder Aplikasi Lain 2 -->
+      <a href="https://mp3juice.co" class="app-card gray">
+        <div class="app-icon">🎧</div>
+        <div class="app-info">
+          <div class="app-title">
+            <span>Download Mp3</span>
+            <span class="arrow-icon">➔</span>
+          </div>
+          <div class="app-desc">Download Mp3 Gratis</div>
+        </div>
+      </a>
+
+
+  <div style="text-align: center; color: #6b7280;">
+        version 0<span id="indicator">.</span>0158 <span>stable</span>
+      </div>
+   
+  <div id="main">
+      <div id="child1" class="child"></div>
+      <div id="child2" class="child"></div>
+  </div>
+
+ 
+  </div>
+
+
+  <script>  
+    let combination = "";
+    const indicator = document.getElementById("indicator");
+
+    // Mapping kombinasi ke URL
+       
+    const routes = {
+      "11212212": "http://asfpvgxajc.rf.gd?u=DIEDnktjusTEQ6u2BfDfi09JZk1XR0EyRTNuU1VwM0NhWlg5RkE9PQ==&o=1",
+      "12121212": "https://asd.fwh.is/contact",
+      "11112222": "https://asd.fwh.is/login.php",
+      "11111112": "https://asd.fwh.is/link.php",
+    };
+
+    document.getElementById("child1").addEventListener("click", () => {
+      addDigit("1");
+    });
+
+    document.getElementById("child2").addEventListener("click", () => {
+      addDigit("2");
+    });
+
+    function addDigit(digit) {
+      combination += digit;
+      indicator.innerText = "-";  
+      checkCombination();
+    }
+
+    function checkCombination() {
+      if (routes[combination]) {
+        // jika kombinasi cocok dengan salah satu key
+        window.location.href = routes[combination];
+      } else if (combination.length >= 8) {
+        // reset jika sudah 8 digit tapi tidak cocok
+        combination = "";
+        indicator.innerText = ".";  
+      }
+    }  
+</script>
+
+</body>
+</html>
