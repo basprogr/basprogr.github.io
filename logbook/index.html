@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Logbook Modern</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  
+  <!-- Supabase JS Client SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style> 
+    :root {
+      --orange: #f97316;
+      --gray: #d1d5db;
+      --softGray: #f3f4f6;
+    }
+
+    body { font-family: Arial, sans-serif; margin: 0; padding: 10px; }
+    div#syncStatus { position: fixed; top: 0; left: 0; width: 100%; height: 25px; line-height: 25px; background-color: var(--orange); color: #ffffff; text-align: center; font-size: 12px; z-index: 1000; }  
+    div.header { display: flex; justify-content: space-between; padding-top: 25px; max-width: 500px; margin: 0 auto; }
+    div#patientContainer { width: 100%; max-width: 500px; padding: 10px; box-sizing: border-box; }
+    div.patient-block { padding: 5px; background-color: #fff; border: 1px solid var(--gray); margin-bottom: 10px; border-radius: 4px; }   
+    input.patient-name { border: none; background: var(--softGray); padding: 4px; border-radius: 3px; }
+    div.patient-header { padding: 5px 10px; background: var(--softGray); font-weight: bold; }
+    div.patient-content { padding: 10px 10px 5px; display: grid; grid-template-columns: calc(50% - 5px) calc(50% - 5px); gap: 10px; }  
+    .task-input, .therapy-input { margin-bottom: 5px; }
+    input[type='text'].task, input.todo-input { width: 70%; padding: 4px; }
+    .bullet-list { list-style: none; padding-left: 0; margin: 0; }
+    .bullet-list li { display: flex; align-items: center; gap: 8px; padding: 4px 0; font-size: 13px; cursor: pointer; }
+    
+    /* MODIFIKASI STATUS GAYA TEKS */
+    .bullet-list li.status-1 .bullet-text { text-decoration: line-through; color: #9ca3af; font-weight: normal; }
+    .bullet-list li.status-2 .bullet-text { text-decoration: none; color: #dc2626; font-weight: bold; }
+
+    .remove-room { text-decoration: none; color: red; font-weight: bold; margin: 0 5px; } 
+    .delete-btn { color: #dc2626; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+  <div id="syncStatus">Halo, selamat bekerja</div>
+
+  <div class="header">
+    <div style="width: 48%;"> 
+      <details id="roomList">
+        <summary style="cursor: pointer;">Pilih Ruangan</summary>
+        <table>
+          <tr>
+            <td><label><input type="checkbox" name="room" value="301-A"> 301a</label></td>
+            <td><label><input type="checkbox" name="room" value="301-B"> 301b</label></td>
+          </tr>
+          <tr>
+            <td><label><input type="checkbox" name="room" value="302-A"> 302a</label></td>
+            <td><label><input type="checkbox" name="room" value="302-B"> 302b</label></td>
+          </tr> 
+          <tr>
+            <td><label><input type="checkbox" name="room" value="303-A"> 303a</label></td>
+            <td><label><input type="checkbox" name="room" value="303-B"> 303b</label></td>
+          </tr>
+          <tr>
+            <td><label><input type="checkbox" name="room" value="304-A"> 304a</label></td>
+            <td><label><input type="checkbox" name="room" value="304-B"> 304b</label></td>
+          </tr>
+          <tr>
+            <td><label><input type="checkbox" name="room" value="305-A"> 305a</label></td>
+            <td><label><input type="checkbox" name="room" value="305-B"> 305b</label></td>
+            <td><label><input type="checkbox" name="room" value="305-C"> 305c</label></td> 
+          </tr>
+          <tr>
+            <td><label><input type="checkbox" name="room" value="306-A"> 306a</label></td>
+            <td><label><input type="checkbox" name="room" value="306-B"> 306b</label></td>
+            <td><label><input type="checkbox" name="room" value="306-C"> 306c</label></td> 
+          </tr>
+          <tr>
+            <td><label><input type="checkbox" name="room" value="307-A"> 307a</label></td>
+            <td><label><input type="checkbox" name="room" value="307-B"> 307b</label></td>
+            <td><label><input type="checkbox" name="room" value="307-C"> 307c</label></td> 
+          </tr>
+          <tr>
+            <td><label><input type="checkbox" name="room" value="308-A"> 308a</label></td>
+            <td><label><input type="checkbox" name="room" value="308-B"> 308b</label></td>
+            <td><label><input type="checkbox" name="room" value="308-C"> 308c</label></td> 
+          </tr>
+          <tr>
+            <td><label><input type="checkbox" name="room" value="309-A"> 309a</label></td>
+            <td><label><input type="checkbox" name="room" value="309-B"> 309b</label></td>
+            <td><label><input type="checkbox" name="room" value="309-C"> 309c</label></td> 
+          </tr> 
+          <tr>
+            <td><label><input type="checkbox" name="room" value="310-A"> 310a</label></td>
+            <td><label><input type="checkbox" name="room" value="310-B"> 310b</label></td>
+            <td><label><input type="checkbox" name="room" value="310-C"> 310c</label></td>
+            <td><label><input type="checkbox" name="room" value="310-D"> 310d</label></td>
+          </tr>
+          <tr>
+            <td><label><input type="checkbox" name="room" value="311-A"> 311a</label></td>
+            <td><label><input type="checkbox" name="room" value="311-B"> 311b</label></td>
+            <td><label><input type="checkbox" name="room" value="311-C"> 311c</label></td> 
+          </tr> 
+        </table>  
+        <button onclick="addSelectedRooms()" style="width: 100%; margin-top: 5px;">Tambah</button> 
+      </details>
+    </div> 
+    
+    <input class="task" type="date" id="filterDate" onchange="loadLogbookByDate()">  
+  </div>
+
+  <div style="display: flex; justify-content: center; width: 100%;">
+    <div id="patientContainer"></div>
+  </div>
+
+  <script>
+    // Config Supabase
+    const SUPABASE_URL = 'https://qjwmhtnfowkmwoflwhzy.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFqd21odG5mb3drbXdvZmx3aHp5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY5NjAwMTIsImV4cCI6MjEwMjUzNjAxMn0.ERWHxYn3GJJKHXJaJaZ2vnypcEM0DF8QE4DR_mjF-3s';
+    const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    // Ambil tanggal dari input (format YYYYMMDD)
+    function getSelectedDate() {
+      const dateInput = document.getElementById('filterDate');
+      const date = dateInput.value;
+      return date ? date.replace(/-/g, '') : null;
+    }
+
+    // Status syncing UI
+    function setSyncingStatus() {
+      document.getElementById('syncStatus').textContent = 'Syncing...';
+    }
+
+    function updateSyncStatus() {
+      const now = new Date();
+      const hari = new Intl.DateTimeFormat('id-ID', { weekday: 'long' }).format(now);
+      const formatted = `${hari}, ${now.toLocaleDateString('id-ID')} ${now.toLocaleTimeString('id-ID')}`;
+      document.getElementById('syncStatus').textContent = `Synced: ${formatted}`;
+    }
+
+    function addSelectedRooms() {
+      const checked = document.querySelectorAll('input[name="room"]:checked');
+      const container = document.getElementById('patientContainer');
+
+      checked.forEach(cb => {
+        if (!Array.from(container.children).some(div => div.dataset.room === cb.value)) {
+          container.appendChild(generatePatientBlock(cb.value));
+        }
+        cb.checked = false;
+        document.getElementById("roomList").open = false;
+      }); 
+      autoSave();
+    }
+
+    function debounce(func, delay) {
+      let timeout;
+      return function (...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), delay);
+      };
+    }
+
+    function generatePatientBlock(room) {
+      const block = document.createElement('div');
+      block.className = 'patient-block';
+      block.dataset.room = room;
+
+      block.innerHTML = `  
+        <div class="patient-header">
+          ${room} / <a href="#_" class="remove-room">x</a> / <input class="patient-name" type="text" placeholder="Pasien">
+        </div>
+        <div class="patient-content">
+          <div class="task-column">
+            <div class="task-input"> 
+              <input type="text" class="todo-input task" placeholder="Task"><button>+</button> 
+            </div>
+            <ul class="bullet-list"></ul>
+          </div>
+          <div class="therapy-column">
+            <div class="therapy-input">
+              <input type="text" class="todo-input task" placeholder="Therapy"><button>+</button> 
+            </div>
+            <ul class="bullet-list"></ul>
+          </div>
+        </div>
+      `;
+
+      block.querySelector('.patient-name').addEventListener('input', debounce(autoSave, 1000));
+
+      block.querySelectorAll('.task-input button, .therapy-input button').forEach(btn => {
+        btn.addEventListener('click', () => addBullet(btn));
+      });
+
+      // DELETE Hapus ruangan di Supabase
+      block.querySelector('.remove-room').addEventListener('click', async (e) => {
+        e.preventDefault();
+        const created_at = getSelectedDate() || new Date().toISOString().slice(0,10).replace(/-/g, '');
+        
+        setSyncingStatus();
+        const { error } = await _supabase
+          .from('logbook')
+          .delete()
+          .eq('room', block.dataset.room)
+          .eq('created_at', created_at);
+
+        if (error) {
+          console.error('Delete failed:', error);
+          document.getElementById('syncStatus').textContent = '❌ Delete failed';
+        } else {
+          block.remove();
+          updateSyncStatus();
+        }
+      });
+
+      activateEnterListeners(block);
+      return block;
+    }
+
+    function createListItem(ulElement, text, statusValue = 0) {
+      const li = document.createElement('li');
+      li.className = 'clickable';
+      li.dataset.status = statusValue;
+      if (statusValue > 0) {
+        li.classList.add(`status-${statusValue}`);
+      }
+
+      li.innerHTML = `
+        <span class="delete-btn">&#9746;</span>
+        <span class="bullet-text">${text}</span> 
+      `;
+
+      li.querySelector('.bullet-text').addEventListener('click', () => {
+        let currentStatus = parseInt(li.dataset.status) || 0;
+        if (currentStatus > 0) li.classList.remove(`status-${currentStatus}`);
+
+        currentStatus = (currentStatus + 1) % 3;
+        li.dataset.status = currentStatus;
+
+        if (currentStatus > 0) li.classList.add(`status-${currentStatus}`);
+        autoSave();
+      });
+
+      li.querySelector('.delete-btn').addEventListener('click', e => {
+        e.stopPropagation();
+        li.remove();
+        autoSave();
+      });
+
+      ulElement.appendChild(li);
+    }
+
+    function addBullet(button) {
+      const input = button.previousElementSibling;
+      const ul = button.closest('.task-column, .therapy-column')?.querySelector('.bullet-list');
+      const text = input.value.trim();
+
+      if (!text) return;
+      createListItem(ul, text, 0);
+
+      input.value = '';
+      input.focus();
+      autoSave();
+    }
+
+    function activateEnterListeners(scope = document) {
+      scope.querySelectorAll('.todo-input').forEach(input => {
+        input.addEventListener('keydown', e => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            input.nextElementSibling?.click();
+          }
+        });
+      });
+    }
+
+    function renderList(listElement, items) {
+      if (!items || !Array.isArray(items)) return;
+      items.forEach(t => {
+        let initialStatus = 0;
+        if (t.status !== undefined) {
+          initialStatus = parseInt(t.status);
+        } else if (t.done === true) {
+          initialStatus = 1;
+        }
+        createListItem(listElement, t.text, initialStatus);
+      });
+    }
+
+    // SELECT / READ dari Supabase
+    async function loadLogbookByDate() {
+      const date = getSelectedDate();
+      if (!date) return;
+
+      setSyncingStatus();
+      const { data, error } = await _supabase
+        .from('logbook')
+        .select('room, patient_name, tasks, therapies')
+        .eq('created_at', date)
+        .order('room', { ascending: true });
+
+      if (error) {
+        console.error('Load failed:', error);
+        document.getElementById('syncStatus').textContent = '❌ Load failed';
+        return;
+      }
+
+      const container = document.getElementById('patientContainer');
+      container.innerHTML = '';
+
+      data.forEach(entry => {
+        const block = generatePatientBlock(entry.room);
+        block.querySelector('.patient-name').value = entry.patient_name || '';
+
+        renderList(block.querySelector('.task-column .bullet-list'), entry.tasks);
+        renderList(block.querySelector('.therapy-column .bullet-list'), entry.therapies);
+
+        container.appendChild(block);
+      });
+      updateSyncStatus();
+    }
+
+    // UPSERT (Insert or Update) ke Supabase
+    async function autoSave() {
+      const created_at = getSelectedDate() || new Date().toISOString().slice(0,10).replace(/-/g, '');
+      const blocks = document.querySelectorAll('.patient-block');
+      
+      const payload = Array.from(blocks).map(block => ({
+        room: block.dataset.room,
+        patient_name: block.querySelector('.patient-name')?.value.trim() || '',
+        tasks: Array.from(block.querySelectorAll('.task-column .bullet-list li')).map(li => ({
+          text: li.querySelector('.bullet-text')?.textContent.trim() || '',
+          status: parseInt(li.dataset.status) || 0
+        })),
+        therapies: Array.from(block.querySelectorAll('.therapy-column .bullet-list li')).map(li => ({
+          text: li.querySelector('.bullet-text')?.textContent.trim() || '',
+          status: parseInt(li.dataset.status) || 0
+        })),
+        created_at
+      }));
+
+      if (payload.length === 0) return;
+
+      setSyncingStatus();
+
+      const { error } = await _supabase
+        .from('logbook')
+        .upsert(payload, { onConflict: 'room,created_at' });
+
+      if (error) {
+        console.error('Auto-save failed:', error);
+        document.getElementById('syncStatus').textContent = `❌ Sync failed: ${error.message}`;
+      } else {
+        updateSyncStatus();
+      }
+    }
+
+    // Initialize Tanggal Hari Ini
+    window.addEventListener('DOMContentLoaded', () => {
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = String(today.getMonth() + 1).padStart(2, '0');
+      const day = String(today.getDate()).padStart(2, '0');
+      
+      const dateInput = document.getElementById('filterDate');
+      dateInput.value = `${year}-${month}-${day}`;
+      loadLogbookByDate();
+    });
+  </script>
+</body>
+</html>
