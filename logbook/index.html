@@ -19,11 +19,11 @@
       --accent-red: #dc2626;
       --input-bg: #f3f4f6; 
     } 
-    * {box-sizing: border-box; font-family: monospace;} 
+    * { box-sizing: border-box; font-family: monospace; font-size: 0.8rem; } 
     body { margin: 0; padding: 10px; background-color: var(--bg); color: var(--text-main); } 
-    div#syncStatus { position: fixed; top: 0; left: 0; width: 100%; height: 32px; line-height: 32px; background-color: #2a5c84; color: #ffffff; text-align: center; font-size: 11px; font-weight: bold;letter-spacing: 0.5px; z-index: 1000; border-bottom: 1px solid #ffedd5; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }  
+    div#syncStatus { position: fixed; top: 0; left: 0; width: 100%; height: 32px; line-height: 32px; background-color: #2a5c84; color: #ffffff; text-align: center; font-weight: bold;letter-spacing: 0.5px; z-index: 1000; border-bottom: 1px solid #ffedd5; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }  
     div.header { display: flex; justify-content: space-between; align-items: center; padding-top: 32px; max-width: 500px; margin: 0 auto 10px; }
-    details#roomList { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 6px; padding: 6px 10px; font-size: 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.03); }
+    details#roomList { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 6px; padding: 6px 10px; box-shadow: 0 1px 2px rgba(0,0,0,0.03); }
 
     details#roomList summary {
       cursor: pointer;
@@ -39,8 +39,7 @@
     }
 
     details#roomList td {
-      padding: 3px 4px;
-      font-size: 11px;
+      padding: 3px 4px; 
       color: var(--text-muted);
     }
 
@@ -56,8 +55,7 @@
       padding: 6px;
       border-radius: 4px;
       font-weight: bold;
-      cursor: pointer;
-      font-size: 11px;
+      cursor: pointer; 
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
@@ -73,8 +71,7 @@
       border: 1px solid var(--card-border);
       padding: 6px 10px;
       border-radius: 6px;
-      outline: none;
-      font-size: 12px;
+      outline: none; 
       box-shadow: 0 1px 2px rgba(0,0,0,0.03);
     }
 
@@ -99,8 +96,7 @@
       background: #f3f4f6; 
       font-weight: bold; 
       color: var(--text-main);
-      border-radius: 6px;
-      font-size: 13px;
+      border-radius: 6px; 
       display: flex;
       align-items: center;
       gap: 6px;
@@ -111,8 +107,7 @@
       background: #ffffff; 
       color: var(--text-main);
       padding: 4px 8px; 
-      border-radius: 4px; 
-      font-size: 12px;
+      border-radius: 4px;  
       outline: none;
       flex-grow: 1;
     }
@@ -141,8 +136,7 @@
       background: var(--input-bg);
       border: 1px solid var(--card-border);
       color: var(--text-main);
-      border-radius: 4px;
-      font-size: 12px;
+      border-radius: 4px; 
       outline: none;
     }
 
@@ -168,11 +162,11 @@
       margin: 0; 
     }
 
-    .bullet-list li { display: flex; align-items: center; gap: 8px; padding: 5px 6px; font-size: 12px; cursor: pointer; border-radius: 4px; margin-bottom: 3px; } 
+    .bullet-list li { display: flex; align-items: center; gap: 8px; padding: 5px 6px; cursor: pointer; border-radius: 4px; margin-bottom: 3px; } 
     .bullet-list li.status-1 .bullet-text { text-decoration: line-through; color: #9ca3af; font-weight: normal; } 
     .bullet-list li.status-2 .bullet-text { text-decoration: none; color: var(--accent-red); font-weight: bold; } 
     .remove-room { text-decoration: none; color: var(--accent-red); font-weight: bold; margin: 0 2px; }  
-    .delete-btn { color: #9ca3af; cursor: pointer; font-size: 13px; } 
+    .delete-btn { color: #9ca3af; cursor: pointer; } 
   </style>
 </head>
 <body>
