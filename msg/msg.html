@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room Chat</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Supabase JS Client Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+    <!-- MODAL INTERAKSI AWAL -->
+    <div id="welcomeModal" class="modal-overlay">
+        <div class="modal-box">
+            <h4 id="modalTitle">Selamat Datang!</h4>
+            <p id="modalDesc">Silakan isi nama dan setujui aturan untuk bergabung.</p>
+            
+            <input type="text" id="modalInputName" placeholder="Ketik nama Anda..." autocomplete="off">
+            
+            <!-- Box Syarat & Ketentuan -->
+            <div class="tos-box">
+                <strong>Syarat & Ketentuan Layanan:</strong>
+                <ul>
+                    <li><strong>Larangan Penggunaan:</strong> Dilarang keras menggunakan layanan ini untuk transaksi narkoba, judi online, penipuan, konten terorisme, pencucian uang, eksploitasi anak, serta tindakan melanggar hukum lainnya.</li>
+                    <li><strong>Hak Penindakan:</strong> Pengelola berhak menangguhkan, memblokir, atau menghapus akses pengguna yang terbukti melanggar aturan tanpa pemberitahuan sebelumnya.</li>
+                    <li><strong>Pelepasan Tanggung Jawab:</strong> Platform ini hanya menyediakan media komunikasi dan tidak bertanggung jawab atas isi percakapan maupun tindakan pribadi pengguna.</li>
+                </ul>
+            </div>
+
+            <!-- Checkbox Agreement -->
+            <label class="tos-checkbox">
+                <input type="checkbox" id="tosAgree" onchange="toggleModalBtn()">
+                Saya telah membaca dan menyetujui Syarat & Ketentuan.
+            </label>
+
+            <button id="modalBtn" onclick="confirmWelcome()" disabled>Mulai Chat</button>
+        </div>
+    </div>
+
+    <!-- UTAMA: APP CHAT CONTAINER -->
+    <div class="container chat-container" id="mainChatApp" style="display: none;">
+        <!-- Header Room -->
+        <div style="border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 10px; display:flex; justify-content:space-between; align-items:center;">
+            <div>
+                <h3 style="margin:0;">Room: <span id="roomCodeTitle">-</span></h3>
+                <small style="color:#777;">Masuk sebagai: <strong id="displayName">-</strong> <a onclick="changeUsername()" style="color:#007aff; cursor:pointer; font-size:12px; margin-left:5px;">(Ganti Nama)</a></small>
+            </div>
+        </div>
+
+        <!-- Box Area Chat Messages -->
+        <div class="chat-messages" id="chatBox"></div>
+
+        <!-- Preview Balasan -->
+        <div id="replyPreview" class="reply-preview" style="display: none;">
+            <div>
+                <small style="color:#007aff; font-weight:bold;">Membalas <span id="replySender"></span>:</small>
+                <div id="replyText" style="color:#555; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:280px;"></div>
+            </div>
+            <button type="button" onclick="cancelReply()">✕</button>
+        </div>
+
+        <!-- Form Kirim Pesan -->
+        <form id="chatForm" style="margin-top: 8px;">
+            <input type="hidden" id="replyToId" name="reply_to_id" value="">
+            <div style="display: flex; gap: 8px;">
+                <input type="text" id="messageInput" placeholder="Ketik pesan..." required autocomplete="off">
+                <button type="submit" style="width: auto; padding: 0 20px;">Kirim</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- SCRIPT INITIALIZATION -->
+    <script src="config.js"></script>
+    <script>
+        // Extract room parameter dari URL (?room=XXXXX)
+        const urlParams = new URLSearchParams(window.location.search);
+        const ROOM_CODE = urlParams.get('room');
+
+        // Validasi Room di Supabase sebelum menampilkan UI
+        async function validateRoom() {
+            if (!ROOM_CODE) {
+                document.body.innerHTML = '<h3 style="text-align:center; margin-top:50px; color:red;">Kode room tidak valid!</h3>';
+                return;
+            }
+
+            const { data: room, error } = await supabaseClient
+                .from('rooms')
+                .select('*')
+                .eq('room_code', ROOM_CODE)
+                .single();
+
+            if (error || !room) {
+                document.body.innerHTML = '<h3 style="text-align:center; margin-top:50px; color:red;">Room chat tidak ditemukan!</h3>';
+                return;
+            }
+
+            const isExpired = new Date(room.expired_at) < new Date();
+            if (isExpired) {
+                document.body.innerHTML = '<h3 style="text-align:center; margin-top:50px; color:orange;">Sesi room chat ini telah kadaluarsa.</h3>';
+                return;
+            }
+
+            // Jika room valid & aktif, tampilkan UI & judul room
+            document.getElementById('roomCodeTitle').innerText = ROOM_CODE;
+            document.title = `Room Chat - ${ROOM_CODE}`;
+            document.getElementById('mainChatApp').style.display = 'block';
+        }
+
+        validateRoom();
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
