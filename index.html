@@ -12,8 +12,10 @@
       --text-main: #111827;
       --text-muted: #6b7280;
       --accent-orange: #aa5a20;
-      --accent-blue: #598eff; 
+      --accent-blue: #a2e7e4; 
       --accent-gray: #4e4e4e; 
+      --accent-yellow: #f3c955; 
+
     } 
     * {font-family: monospace;   box-sizing: border-box;  margin: 0;  padding: 0;}
     body {   background-color: var(--bg);  color: var(--text-main);  min-height: 100vh;  display: flex;  flex-direction: column;  align-items: center;  padding: 20px 10px;}
@@ -24,10 +26,11 @@
     .app-grid {  display: flex;  flex-direction: column;  gap: 10px;}
     .app-card {  display: flex;  align-items: center;  padding: 16px;  background-color: var(--card-bg);  border: 1px solid var(--card-border);  border-radius: 12px;  text-decoration: none;  color: var(--text-main);  transition: all 0.2s ease;  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);}
     .app-card:hover {  transform: translateY(-2px);  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);}
-    .app-card.orange {  border-left: 6px solid var(--accent-orange);}.app-card.orange:hover {  border-color: var(--accent-orange);}
-    .app-card.blue {  border-left: 6px solid var(--accent-blue);}.app-card.blue:hover {  border-color: var(--accent-blue);}
-    .app-card.gray {  border-left: 6px solid var(--accent-gray);}.app-card.gray:hover {  border-color: var(--accent-gray);}
-    .app-card.purple {  border-left: 6px solid var(--accent-purple);}.app-card.purple:hover {  border-color: var(--accent-purple);}
+    .app-card.orange {  border-left: 6px solid var(--accent-orange);} 
+    .app-card.blue {  border-left: 6px solid var(--accent-blue);} 
+    .app-card.gray {  border-left: 6px solid var(--accent-gray);} 
+    .app-card.purple {  border-left: 6px solid var(--accent-purple);} 
+    .app-card.yellow {  border-left: 6px solid var(--accent-yellow);} 
     .app-icon {  font-size: 32px;  margin-right: 20px;  display: flex;  align-items: center;  justify-content: center;  width: 48px;  height: 48px;  background: var(--bg);  border-radius: 10px;}
     .app-info {  flex: 1;}
     .app-title {  font-size: 16px;  font-weight: bold;  margin-bottom: 4px;  display: flex;  align-items: center;  justify-content: space-between;}
@@ -74,9 +77,20 @@
           <div class="app-desc">Free Mp3 Download</div>
         </div>
       </a>
+
+      <a href="https://asd.fwh.is" class="app-card yellow">
+              <div class="app-icon">📁</div>
+              <div class="app-info">
+                <div class="app-title">
+                  <span>Previous Version</span>
+                  <span class="arrow-icon">➔</span>
+                </div>
+                <div class="app-desc">Back To Deprecated Version</div>
+              </div>
+            </a>
  
   <div style="margin-top: 16px; text-align: center; color: #6b7280;">
-        version 0<span id="indicator">.</span>-
+        version -<span id="indicator">.</span>-
       </div>
    
   <div id="main">
